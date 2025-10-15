@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agentic Workflow on AWS · John Dennis</title>
+  <meta name="description" content="Agentic workflow system built with AWS Bedrock, Step Functions, and Lambda by John Dennis." />
+  <style>
+    :root { --bg:#0b1020; --card:#121831; --accent:#7cc7ff; --muted:#9fb3c8; --text:#e8f0ff; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+           background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px; }
+    header { padding: 28px 0 8px; }
+    .crumbs { font-size:14px; color: var(--muted); margin-bottom: 8px; }
+    h1 { margin: 6px 0 8px; font-size: clamp(26px, 5vw, 38px); line-height:1.2; }
+    .meta { color: var(--muted); font-size: 13px; margin: 4px 0 16px; }
+    .card { background: linear-gradient(180deg, #121831, #10162b); border:1px solid #22325c; border-radius:16px; padding:18px; margin: 16px 0; }
+    .pill { display:inline-block; font-size:12px; color:#b9c6d8; border:1px solid #2a3a64; padding:4px 8px; border-radius:999px; margin:0 6px 6px 0; }
+    .sec { margin: 28px 0 10px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .18em; }
+    img { max-width:100%; border-radius:12px; border:1px solid #22325c; }
+    .btn { display:inline-block; background:#182142; color:#e8f0ff; border:1px solid #2a3a64; padding:10px 14px; border-radius:10px; }
+    .btn:hover { background:#1b254b; text-decoration:none; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px;}
+    footer { margin: 28px 0 20px; color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="crumbs"><a href="index.html">← Back to Portfolio</a></div>
+      <h1>Agentic Workflow on AWS</h1>
+      <div class="meta">John Dennis · Agentic Systems · AWS · Bedrock</div>
+    </header>
+
+    <section class="card">
+      <div class="sec">Overview</div>
+      <p>
+        This project showcases an <strong>agentic workflow</strong> built with AWS services. An LLM (Amazon Bedrock)
+        acts as the reasoning engine, orchestrated by <strong>AWS Step Functions</strong>, and supported by
+        <strong>Lambda functions</strong> that perform specific tasks (APIs, data lookups, business logic).
+      </p>
+      <p class="mono">
+        TL;DR: Bedrock Agent → Step Functions → Lambda Tasks → Results
+      </p>
+      <p>
+        <span class="pill">Bedrock</span><span class="pill">Step Functions</span><span class="pill">Lambda</span>
+        <span class="pill">S3</span><span class="pill">IAM</span>
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="sec">Architecture</div>
+      <p>High-level flow of the agentic system:</p>
+      <img src="assets/img/agent-arch.png" alt="Agentic workflow diagram (upload agent-arch.png to assets/img/)" />
+      <p class="mono">Tip: create your diagram in draw.io, export as PNG, upload as <code>assets/img/agent-arch.png</code>.</p>
+    </section>
+
+    <section class="card">
+      <div class="sec">Workflow & Tools</div>
+      <ul>
+        <li><strong>Bedrock Agent</strong>: reasoning core, decides which step/tool to invoke.</li>
+        <li><strong>Step Functions</strong>: orchestrates calls to Lambda functions safely.</li>
+        <li><strong>Lambda Functions</strong>: tools for API calls, database queries, or data transformations.</li>
+        <li><strong>S3</strong>: used to store intermediate artifacts and logs.</li>
+        <li><strong>IAM</strong>: strict roles/permissions to enforce least privilege.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <div class="sec">Use Case Example</div>
+      <p>
+        The agent is tasked with <strong>customer order tracking</strong>:
+      </p>
+      <ol>
+        <li>User asks: “Where’s my package?”</li>
+        <li>Bedrock Agent parses intent → decides to call Order Lookup Lambda.</li>
+        <li>Step Functions run the Lambda with the order ID.</li>
+        <li>Result returned → Agent formulates natural-language response with status + ETA.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <div class="sec">Cost & Security</div>
+      <ul>
+        <li>Pay-per-use only (Lambda & Step Functions scale to zero when idle).</li>
+        <li>No public endpoints exposed; API Gateway is private to the demo account.</li>
+        <li>All secrets managed in AWS Parameter Store.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <div class="sec">Links</div>
+      <p>
+        <a class="btn" href="#" target="_blank" rel="noopener">GitHub (code/IaC)</a>
+        <a class="btn" href="#" target="_blank" rel="noopener">90-sec Video</a>
+        <a class="btn" href="assets/img/agent-arch.png" target="_blank" rel="noopener">Architecture PNG</a>
+      </p>
+    </section>
+
+    <footer>
+      © <span id="y"></span> John Dennis · Built with HTML/CSS · Deployed on Amazon S3
+    </footer>
+  </div>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>

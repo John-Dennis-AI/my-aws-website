@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Private RAG with Cost Controls · John Dennis</title>
+  <meta name="description" content="RAG system on AWS with tight cost and latency controls by John Dennis." />
+  <style>
+    :root { --bg:#0b1020; --card:#121831; --accent:#7cc7ff; --muted:#9fb3c8; --text:#e8f0ff; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+           background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px; }
+    header { padding: 28px 0 8px; }
+    .crumbs { font-size:14px; color: var(--muted); margin-bottom: 8px; }
+    h1 { margin: 6px 0 8px; font-size: clamp(26px, 5vw, 38px); line-height:1.2; }
+    .meta { color: var(--muted); font-size: 13px; margin: 4px 0 16px; }
+    .card { background: linear-gradient(180deg, #121831, #10162b); border:1px solid #22325c; border-radius:16px; padding:18px; margin: 16px 0; }
+    .pill { display:inline-block; font-size:12px; color:#b9c6d8; border:1px solid #2a3a64; padding:4px 8px; border-radius:999px; margin:0 6px 6px 0; }
+    .sec { margin: 28px 0 10px; font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: .18em; }
+    img { max-width:100%; border-radius:12px; border:1px solid #22325c; }
+    .btn { display:inline-block; background:#182142; color:#e8f0ff; border:1px solid #2a3a64; padding:10px 14px; border-radius:10px; }
+    .btn:hover { background:#1b254b; text-decoration:none; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px;}
+    footer { margin: 28px 0 20px; color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="crumbs"><a href="index.html">← Back to Portfolio</a></div>
+      <h1>Private RAG with Cost Controls</h1>
+      <div class="meta">John Dennis · RAG · AWS · Serverless</div>
+    </header>
+
+    <section class="card">
+      <div class="sec">Overview</div>
+      <p>
+        This project demonstrates a Retrieval-Augmented Generation (RAG) pipeline on AWS designed for
+        <strong>private data</strong>, <strong>predictable costs</strong>, and <strong>fast answers</strong>.
+        It indexes documents in Amazon S3, retrieves relevant chunks, and generates grounded responses
+        via an LLM (e.g., Amazon Bedrock), with guardrails for latency and spend.
+      </p>
+      <p class="mono">
+        TL;DR: S3 → (ingest/chunk/embed) → vector index → retrieve + rerank → Bedrock LLM → response
+      </p>
+      <p>
+        <span class="pill">S3</span><span class="pill">Glue (optional)</span><span class="pill">Lambda</span>
+        <span class="pill">OpenSearch / FAISS</span><span class="pill">Bedrock</span><span class="pill">IAM</span>
+      </p>
+    </section>
+
+    <section class="card">
+      <div class="sec">Architecture</div>
+      <p>High-level flow and AWS services used:</p>
+      <img src="assets/img/rag-arch.png" alt="RAG architecture diagram (upload rag-arch.png to assets/img/)" />
+      <p class="mono">Tip: export a PNG from draw.io / diagrams.net and upload it to <code>assets/img/rag-arch.png</code>.</p>
+    </section>
+
+    <section class="card">
+      <div class="sec">Tech Stack & Decisions</div>
+      <ul>
+        <li><strong>Chunking</strong>: e.g., 800–1,000 tokens, 10–15% overlap (keeps context intact).</li>
+        <li><strong>Embeddings</strong>: Bedrock or open-source model (consistent across index/query).</li>
+        <li><strong>Vector Index</strong>: OpenSearch vector engine or FAISS (low-cost demos).</li>
+        <li><strong>Retrieval</strong>: top-k = 4–8; optional MMR to diversify similar chunks.</li>
+        <li><strong>Reranking</strong>: optional lightweight reranker for quality ↑ with small latency cost.</li>
+        <li><strong>LLM</strong>: Amazon Bedrock model family; prompts enforce citations & refusal rules.</li>
+        <li><strong>Observability</strong>: CloudWatch metrics for latency, token counts, and hit rate.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <div class="sec">Cost & Performance (Demo Targets)</div>
+      <ul>
+        <li><strong>Indexing cost</strong>: one-time per doc batch; keep small for a portfolio demo.</li>
+        <li><strong>Query latency</strong>: target &lt; 1.5s p50 (cached embeddings + simple prompts).</li>
+        <li><strong>Monthly run cost</strong>: $$ only when you query; this site is static (no public API).</li>
+      </ul>
+      <p class="mono">Note: Public site is static—no endpoints exposed. Live queries remain private in my dev account.</p>
+    </section>
+
+    <section class="card">
+      <div class="sec">Security & Privacy</div>
+      <ul>
+        <li>No PII in the demo corpus; strict IAM roles; secrets stored in Parameter Store.</li>
+        <li>No public write endpoints; all data at rest encrypted; logs scrubbed of sensitive tokens.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <div class="sec">Links</div>
+      <p>
+        <a class="btn" href="#" target="_blank" rel="noopener">GitHub (code/IaC)</a>
+        <a class="btn" href="#" target="_blank" rel="noopener">90-sec Video</a>
+        <a class="btn" href="assets/img/rag-arch.png" target="_blank" rel="noopener">Architecture PNG</a>
+      </p>
+    </section>
+
+    <footer>
+      © <span id="y"></span> John Dennis · Built with HTML/CSS · Deployed on Amazon S3
+    </footer>
+  </div>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
