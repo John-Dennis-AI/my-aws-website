@@ -3,126 +3,58 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>John Dennis — AI/ML Portfolio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>John Dennis — Data Science & AI/ML Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* ------------ Base + Theme ------------ */
     :root{
-      --bg:#0b1220;         /* deep night */
-      --panel:#111a2e;      /* cards/nav */
-      --text:#e9f0ff;       /* primary text */
-      --muted:#b8c3e0;      /* secondary text */
-      --accent:#79d2ff;     /* buttons/links */
-      --accent-2:#a0ffcf;   /* subtle accent */
-      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --bg:#0b1220;
+      --panel:#111a2e;
+      --text:#e9f0ff;
+      --muted:#b8c3e0;
+      --accent:#79d2ff;
+      --accent-2:#a0ffcf;
       --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
       --maxw:1100px;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text); background:var(--bg); line-height:1.6;
-      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-    }
-    a{color:var(--accent); text-decoration:none}
-    img{max-width:100%; height:auto; display:block;}
-    .container{width:100%; max-width:var(--maxw); margin:0 auto; padding:0 20px}
+    body{margin:0;font-family:Inter,sans-serif;color:var(--text);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;padding-left:240px;}
+    a{color:var(--accent);text-decoration:none}
 
-    /* ------------ Sticky Left Sidebar Nav ------------ */
-    .sidenav{position:fixed; left:0; top:0; bottom:0; width:240px; z-index:1100; background:rgba(11,18,32,.8); border-right:1px solid rgba(255,255,255,.06); backdrop-filter: blur(10px); padding:22px 16px;}
-    .sidenav .brand{font-weight:800; letter-spacing:.2px; margin-bottom:16px}
-    .sidenav nav{display:flex; flex-direction:column; gap:12px}
-    .sidenav a{color:var(--text); padding:10px 12px; border-radius:10px; border:1px solid transparent}
-    .sidenav a:hover{border-color:rgba(255,255,255,.14); text-decoration:none}
-    
-    body{padding-left:240px;}
+    /* Sidebar */
+    .sidenav{position:fixed;left:0;top:0;bottom:0;width:240px;background:rgba(11,18,32,.8);border-right:1px solid rgba(255,255,255,.06);backdrop-filter:blur(10px);padding:22px 16px;z-index:1000;}
+    .sidenav .brand{font-weight:800;margin-bottom:16px;}
+    .sidenav nav{display:flex;flex-direction:column;gap:12px;}
+    .sidenav a{color:var(--text);padding:10px 12px;border-radius:10px;}
+    .sidenav a:hover{background:rgba(255,255,255,.08);}
 
-    /* ------------ Sticky Nav ------------ */
-    .nav{
-      position:sticky; top:0; z-index:1000; backdrop-filter: blur(8px);
-      background:rgba(11,18,32,.6); border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
-    .brand{font-weight:800; letter-spacing:.2px}
-    .nav a{color:var(--text)}
-    .nav-links{display:flex; gap:22px; align-items:center}
-    .nav .cta{background:var(--accent); color:#0b1220; padding:8px 14px; border-radius:999px; font-weight:600}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 20px;}
 
-    /* ------------ Hero with Parallax Starfield + Mountains ------------ */
-    .hero{
-      position:relative; overflow:hidden; min-height:72vh; display:grid; align-items:center;
-      border-bottom:1px solid rgba(255,255,255,.06);
-    }
-    .hero .content{position:relative; z-index:3; padding:80px 0}
-    .kicker{color:var(--accent-2); font-weight:600; letter-spacing:.08em; text-transform:uppercase; font-size:.9rem}
-    .headline{font-size:clamp(32px,6vw,56px); line-height:1.05; margin:.3rem 0 1rem; font-weight:800}
-    .sub{color:var(--muted); max-width:60ch}
-    .hero-actions{display:flex; gap:14px; margin-top:24px}
-    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:999px; font-weight:600}
-    .btn-primary{background:var(--accent); color:#0b1220}
-    .btn-ghost{border:1px solid rgba(255,255,255,.18); color:var(--text)}
+    /* Hero with Starfield */
+    .hero{position:relative;overflow:hidden;min-height:72vh;display:grid;align-items:center;}
+    .sky{background: radial-gradient(1200px 700px at 70% -10%, #1c2c5c 0%, rgba(11,18,32,0) 60%),radial-gradient(1000px 600px at 20% -20%, #13274b 0%, rgba(11,18,32,0) 60%),var(--bg);position:absolute;inset:0;}
+    .stars1,.stars2,.stars3{position:absolute;inset:0;background-repeat:repeat;background-size:cover;}
+    .stars1{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="20" cy="30" r="1.2" fill="white"/><circle cx="80" cy="20" r="1.4" fill="white"/><circle cx="50" cy="90" r="1" fill="white"/></svg>');animation:moveStars1 120s linear infinite;opacity:.9;}
+    .stars2{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><circle cx="60" cy="100" r="1.3" fill="white"/><circle cx="120" cy="50" r="1" fill="white"/><circle cx="10" cy="20" r="1.6" fill="white"/></svg>');animation:moveStars2 180s linear infinite;opacity:.7;}
+    .stars3{background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><circle cx="180" cy="40" r="1.4" fill="white"/><circle cx="70" cy="150" r="1.1" fill="white"/><circle cx="30" cy="60" r="1.2" fill="white"/></svg>');animation:moveStars3 240s linear infinite;opacity:.5;}
+    @keyframes moveStars1{from{background-position:0 0}to{background-position:-4000px 0}}
+    @keyframes moveStars2{from{background-position:0 0}to{background-position:-3000px 0}}
+    @keyframes moveStars3{from{background-position:0 0}to{background-position:-2000px 0}}
 
-    /* Starfield layers (borrowed vibe, original implementation) */
-    .sky, .stars1, .stars2, .stars3{position:absolute; inset:0}
-    .sky{background: radial-gradient(1200px 700px at 70% -10%, #23335a 0%, rgba(11,18,32,0) 60%),
-                            radial-gradient(1000px 600px at 20% -20%, #152343 0%, rgba(11,18,32,0) 60%),
-                            var(--bg);}
-    /* Tiny SVG dot pattern as repeating background; each layer scrolls at a different speed */
-    .stars1{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><circle cx='6' cy='12' r='1.2' fill='white' opacity='.9'/><circle cx='30' cy='30' r='1' fill='white' opacity='.75'/><circle cx='50' cy='8' r='1.4' fill='white' opacity='.85'/><circle cx='20' cy='45' r='1' fill='white' opacity='.7'/></svg>"); background-size:60px 60px; animation: drift1 120s linear infinite; opacity:.7}
-    .stars2{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><circle cx='18' cy='24' r='1.3' fill='white' opacity='.6'/><circle cx='60' cy='60' r='1.1' fill='white' opacity='.55'/><circle cx='40' cy='10' r='1.5' fill='white' opacity='.6'/></svg>"); background-size:80px 80px; animation: drift2 180s linear infinite; opacity:.55}
-    .stars3{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><circle cx='30' cy='80' r='1.2' fill='white' opacity='.35'/><circle cx='90' cy='30' r='1.0' fill='white' opacity='.35'/></svg>"); background-size:120px 120px; animation: drift3 240s linear infinite; opacity:.4}
-    @keyframes drift1{from{background-position:0 0} to{background-position:-4000px 0}}
-    @keyframes drift2{from{background-position:0 0} to{background-position:-3000px 0}}
-    @keyframes drift3{from{background-position:0 0} to{background-position:-2000px 0}}
+    .mountains{position:absolute;bottom:0;left:0;width:100%;height:26vh;}
 
-    /* Canvas-based starfield (random, non-repeating) */
-    #starfield{position:absolute; inset:0; z-index:1; display:block;}
-    /* Layered mountains as inline SVG at the bottom */
-    .mountains{position:absolute; inset:auto 0 0 0; height:26vh; z-index:2; pointer-events:none}
+    .headline{font-size:clamp(32px,6vw,56px);line-height:1.05;font-weight:800;margin:0;z-index:2;position:relative;}
+    .hero-content{position:relative;z-index:3;padding:80px 0;}
 
-    /* ------------ Sections ------------ */
-    section{padding:70px 0}
-    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:20px; margin-bottom:24px}
-    .section-head h2{margin:0; font-size:clamp(24px,4.5vw,36px)}
-    .section-head p{margin:0; color:var(--muted)}
+    /* Mountains lighter blue */
+    .mountains path:nth-child(1){fill:#3b5b91;}
+    .mountains path:nth-child(2){fill:#5678a8;}
 
-    /* Projects Grid */
-    .grid{display:grid; gap:20px}
-    @media (min-width:700px){.grid{grid-template-columns: repeat(2, 1fr)}}
-    @media (min-width:1024px){.grid{grid-template-columns: repeat(3, 1fr)}}
-
-    .card{background:var(--panel); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); display:flex; flex-direction:column}
-    .thumb{aspect-ratio: 16/9; background:#0c1428; display:flex; align-items:center; justify-content:center; color:#6f87b7; font-size:14px}
-    .card-body{padding:16px}
-    .tags{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 14px}
-    .tag{font-size:12px; padding:4px 8px; border:1px solid rgba(255,255,255,.12); border-radius:999px; color:var(--muted)}
-    .card h3{margin:0 0 6px; font-size:18px}
-    .card p{margin:0 0 14px; color:var(--muted)}
-    .actions{display:flex; gap:10px; margin-top:auto; padding:0 16px 16px}
-    .actions a{flex:1; text-align:center; border-radius:10px; padding:10px 12px; border:1px solid rgba(255,255,255,.14); color:var(--text)}
-    .actions a.primary{background:var(--accent); color:#0b1220; border-color:transparent; font-weight:700}
-
-    /* About */
-    .about{display:grid; gap:24px; align-items:center}
-    @media (min-width:860px){.about{grid-template-columns: 260px 1fr}}
-    .avatar{width:240px; height:240px; border-radius:50%; overflow:hidden; border:3px solid rgba(255,255,255,.18); box-shadow:var(--shadow)}
-    .about p{color:var(--muted)}
-
-    /* Footer */
-    footer{padding:40px 0 70px; color:var(--muted)}
-    .foot-links{display:flex; gap:16px; flex-wrap:wrap}
-
-    /* Small helper utilities */
-    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); border:0}
-    .spacer{height:28px}
+    /* Sections */
+    section{padding:70px 0;}
   </style>
 </head>
 <body>
-  <!-- =================== NAV =================== -->
-  <aside class="sidenav" aria-label="Site navigation">
+  <aside class="sidenav">
     <div class="brand">John Dennis • Data Science & AI/ML</div>
     <nav>
       <a href="#projects">Projects</a>
@@ -131,215 +63,18 @@
     </nav>
   </aside>
 
-  <!-- =================== HERO =================== -->
-  <header class="hero" aria-label="Intro">
+  <header class="hero">
     <div class="sky"></div>
-    <canvas id="starfield" aria-hidden="true"></canvas>
-
-    <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="ridgeA" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#0f1a33"/>
-          <stop offset="100%" stop-color="#0b1220"/>
-        </linearGradient>
-        <linearGradient id="ridgeB" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#0b1730"/>
-          <stop offset="100%" stop-color="#0b1220"/>
-        </linearGradient>
-      </defs>
-      <path d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z" fill="url(#ridgeA)" opacity=".9"/>
-      <path d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z" fill="url(#ridgeB)" opacity=".95"/>
+    <div class="stars1"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none">
+      <path d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
+      <path d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z"/>
     </svg>
-
-    <div class="container content">
-      <span class="kicker">Data Science • AI/ML • AWS</span>
+    <div class="container hero-content">
       <h1 class="headline">I design, build, and ship applied AI/ML systems.</h1>
-      <p class="sub">End‑to‑end data science and machine learning projects across RAG, agents, forecasting, computer vision, and MLOps — with clean code, strong docs, and production‑ready deploys on AWS.</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#projects">View Projects</a>
-        <a class="btn btn-ghost" href="#about">About Me</a>
-      </div>
     </div>
   </header>
-
-  <!-- =================== PROJECTS =================== -->
-  <main id="projects" class="container" aria-label="Projects">
-    <div class="section-head">
-      <h2>Featured Projects</h2>
-      <p>Six highlights — each with code and a short write‑up.</p>
-    </div>
-
-    <div class="grid">
-      <!-- CARD 1 -->
-      <article class="card">
-        <!-- Swap this placeholder with your own image: ./assets/rag-demo.jpg -->
-        <div class="thumb"><span>Image: RAG Demo</span></div>
-        <div class="card-body">
-          <h3>RAG Chatbot System</h3>
-          <div class="tags">
-            <span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">AWS</span>
-          </div>
-          <p>Retrieval‑augmented generation with document ingestion, semantic search, and citations.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <!-- CARD 2 -->
-      <article class="card">
-        <div class="thumb"><span>Image: SageMaker Classifier</span></div>
-        <div class="card-body">
-          <h3>SageMaker Image Classifier</h3>
-          <div class="tags"><span class="tag">SageMaker</span><span class="tag">CV</span><span class="tag">PyTorch</span></div>
-          <p>End‑to‑end training + endpoint with a clean walkthrough and sample predictions.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <!-- CARD 3 -->
-      <article class="card">
-        <div class="thumb"><span>Image: Voice Agent</span></div>
-        <div class="card-body">
-          <h3>Realtime Voice Agent</h3>
-          <div class="tags"><span class="tag">Streaming</span><span class="tag">ASR/TTS</span><span class="tag">WebRTC</span></div>
-          <p>Conversational agent with low‑latency speech pipeline and tool‑use actions.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <!-- CARD 4 -->
-      <article class="card">
-        <div class="thumb"><span>Image: Trading Models</span></div>
-        <div class="card-body">
-          <h3>Next‑Day Price Prediction</h3>
-          <div class="tags"><span class="tag">SARIMA</span><span class="tag">LSTM</span><span class="tag">sklearn</span></div>
-          <p>Comparative pipeline for classical vs deep‑learning forecasts on equities.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Report</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <!-- CARD 5 -->
-      <article class="card">
-        <div class="thumb"><span>Image: BikeEase</span></div>
-        <div class="card-body">
-          <h3>BikeEase Generative Ads</h3>
-          <div class="tags"><span class="tag">GenAI</span><span class="tag">Prompting</span><span class="tag">UX</span></div>
-          <p>Interactive ad copy builder with presets, memory, and export to Markdown.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      
-          <!-- CARD 6 -->
-      <article class="card">
-        <div class="thumb"><span>Image: Sixth Project</span></div>
-        <div class="card-body">
-          <h3>Model Cards & Monitoring</h3>
-          <div class="tags"><span class="tag">AWS</span><span class="tag">MLOps</span><span class="tag">Dashboards</span></div>
-          <p>Lightweight governance demo with eval metrics, model cards, and drift visuals.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-    </div>
-  </main>
-
-  <div class="spacer"></div>
-
-  <!-- =================== ABOUT =================== -->
-  <section id="about" class="container" aria-label="About">
-    <div class="section-head">
-      <h2>About</h2>
-      <p>Hands‑on, results‑driven.</p>
-    </div>
-    <div class="about">
-      <div class="avatar">
-        <img src="https://via.placeholder.com/480x480.png?text=Your+Headshot" alt="John Dennis headshot placeholder" />
-      </div>
-      <div>
-        <p>I’m John Dennis, a data science and AI/ML practitioner focused on turning ideas into working products. I build retrieval systems, intelligent agents, forecasting pipelines, and computer vision apps with Python and AWS.</p>
-        <p>Strengths: clear problem framing, clean implementation, measurable results, and dependable deployments (S3 + CloudFront + SageMaker + CI/CD).</p>
-      </div>
-    </div>
-  </section>
-
-  <div class="spacer"></div>
-
-  <!-- =================== CONTACT / FOOTER =================== -->
-  <section id="contact" class="container" aria-label="Contact">
-    <div class="section-head">
-      <h2>Contact</h2>
-      <p>Let’s chat about AI education, demos, and applied ML.</p>
-    </div>
-    <div class="foot-links">
-      <a href="mailto:john@example.com">📧 john@example.com</a>
-      <a href="https://www.linkedin.com/in/john-dennis-ai" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/John-Dennis-AI" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </section>
-
-  <footer class="container" role="contentinfo">
-    <p>© <span id="year"></span> John Dennis. All rights reserved.</p>
-  </footer>
-
-  <script>
-    // Set current year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // === Canvas Starfield (random, non-tiling, twinkling) ===
-    (function(){
-      const canvas = document.getElementById('starfield');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let stars = []; let w=0, h=0; let rafId;
-      function rand(min,max){return Math.random()*(max-min)+min}
-      function makeStars(){
-        stars.length = 0;
-        const rect = canvas.getBoundingClientRect();
-        const count = Math.min(600, Math.floor((rect.width*rect.height)/6000));
-        for(let i=0;i<count;i++){
-          stars.push({ x: Math.random()*w, y: Math.random()*h, r: rand(.8,2.0), a: rand(.85,1.0), tw: rand(.004,.02), p: Math.random()*Math.PI*2 });
-        }
-      }
-      function resize(){
-        const rect = canvas.getBoundingClientRect();
-        w = canvas.width = rect.width * window.devicePixelRatio;
-        h = canvas.height = rect.height * window.devicePixelRatio;
-        ctx.setTransform(window.devicePixelRatio,0,0,window.devicePixelRatio,0,0);
-        makeStars();
-      }
-      function draw(t){
-        ctx.clearRect(0,0,w,h);
-        for(const s of stars){
-          const alpha = s.a * (0.7 + 0.3*Math.sin(t*s.tw + s.p));
-          ctx.globalAlpha = alpha;
-          ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI*2); ctx.fillStyle = '#fff'; ctx.fill();
-          s.x += (Math.random()-0.5)*0.02; s.y += (Math.random()-0.5)*0.02;
-          if(s.x<0) s.x=w; if(s.x>w) s.x=0; if(s.y<0) s.y=h; if(s.y>h) s.y=0;
-        }
-        ctx.globalAlpha = 1;
-        rafId = requestAnimationFrame(draw);
-      }
-      const ro = new ResizeObserver(resize); ro.observe(canvas);
-      resize(); rafId = requestAnimationFrame(draw);
-      window.addEventListener('visibilitychange', ()=>{ if(document.hidden){ cancelAnimationFrame(rafId); } else { rafId = requestAnimationFrame(draw); } });
-    })();
-  </script>
 </body>
 </html>
