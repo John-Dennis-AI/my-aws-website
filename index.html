@@ -37,7 +37,7 @@
     .sidenav nav{display:flex; flex-direction:column; gap:12px}
     .sidenav a{color:var(--text); padding:10px 12px; border-radius:10px; border:1px solid transparent}
     .sidenav a:hover{border-color:rgba(255,255,255,.14); text-decoration:none}
-    .sidenav .cta{background:var(--accent); color:#0b1220; font-weight:700; text-align:center}
+    
     body{padding-left:240px;}
 
     /* ------------ Sticky Nav ------------ */
@@ -65,9 +65,19 @@
     .btn-primary{background:var(--accent); color:#0b1220}
     .btn-ghost{border:1px solid rgba(255,255,255,.18); color:var(--text)}
 
-    /* Canvas-based starfield (random, non-repeating) */
-    #starfield{position:absolute; inset:0; z-index:1; display:block;}
-    .sky{position:absolute; inset:0; background: radial-gradient(1200px 700px at 70% -10%, #23335a 0%, rgba(11,18,32,0) 60%), radial-gradient(1000px 600px at 20% -20%, #152343 0%, rgba(11,18,32,0) 60%), var(--bg);} 
+    /* Starfield layers (borrowed vibe, original implementation) */
+    .sky, .stars1, .stars2, .stars3{position:absolute; inset:0}
+    .sky{background: radial-gradient(1200px 700px at 70% -10%, #23335a 0%, rgba(11,18,32,0) 60%),
+                            radial-gradient(1000px 600px at 20% -20%, #152343 0%, rgba(11,18,32,0) 60%),
+                            var(--bg);}
+    /* Tiny SVG dot pattern as repeating background; each layer scrolls at a different speed */
+    .stars1{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><circle cx='6' cy='12' r='1.2' fill='white' opacity='.9'/><circle cx='30' cy='30' r='1' fill='white' opacity='.75'/><circle cx='50' cy='8' r='1.4' fill='white' opacity='.85'/><circle cx='20' cy='45' r='1' fill='white' opacity='.7'/></svg>"); background-size:60px 60px; animation: drift1 120s linear infinite; opacity:.7}
+    .stars2{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><circle cx='18' cy='24' r='1.3' fill='white' opacity='.6'/><circle cx='60' cy='60' r='1.1' fill='white' opacity='.55'/><circle cx='40' cy='10' r='1.5' fill='white' opacity='.6'/></svg>"); background-size:80px 80px; animation: drift2 180s linear infinite; opacity:.55}
+    .stars3{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><circle cx='30' cy='80' r='1.2' fill='white' opacity='.35'/><circle cx='90' cy='30' r='1.0' fill='white' opacity='.35'/></svg>"); background-size:120px 120px; animation: drift3 240s linear infinite; opacity:.4}
+    @keyframes drift1{from{background-position:0 0} to{background-position:-4000px 0}}
+    @keyframes drift2{from{background-position:0 0} to{background-position:-3000px 0}}
+    @keyframes drift3{from{background-position:0 0} to{background-position:-2000px 0}}
+
     /* Canvas-based starfield (random, non-repeating) */
     #starfield{position:absolute; inset:0; z-index:1; display:block;}
     /* Layered mountains as inline SVG at the bottom */
@@ -113,11 +123,11 @@
 <body>
   <!-- =================== NAV =================== -->
   <aside class="sidenav" aria-label="Site navigation">
-    <div class="brand">John Dennis • AI/ML</div>
+    <div class="brand">John Dennis • Data Science & AI/ML</div>
     <nav>
       <a href="#projects">Projects</a>
       <a href="#about">About</a>
-      <a href="#contact" class="cta">Contact</a>
+      <a href="#contact">Contact</a>
     </nav>
   </aside>
 
@@ -142,9 +152,9 @@
     </svg>
 
     <div class="container content">
-      <span class="kicker">Educator • Builder • AWS</span>
-      <h1 class="headline">I build practical AI/ML demos and explain them clearly.</h1>
-      <p class="sub">Hands‑on projects across RAG, agents, forecasting, and computer vision — deployed on AWS and documented for learners and hiring managers.</p>
+      <span class="kicker">Data Science • AI/ML • AWS</span>
+      <h1 class="headline">I design, build, and ship applied AI/ML systems.</h1>
+      <p class="sub">End‑to‑end data science and machine learning projects across RAG, agents, forecasting, computer vision, and MLOps — with clean code, strong docs, and production‑ready deploys on AWS.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#projects">View Projects</a>
         <a class="btn btn-ghost" href="#about">About Me</a>
@@ -233,21 +243,8 @@
         </div>
       </article>
 
-      <!-- CARD 6 -->
-      <article class="card">
-        <div class="thumb"><span>Image: Sixth Project</span></div>
-        <div class="card-body">
-          <h3>Model Cards & Monitoring</h3>
-          <div class="tags"><span class="tag">AWS</span><span class="tag">MLOps</span><span class="tag">Dashboards</span></div>
-          <p>Lightweight governance demo with eval metrics, model cards, and drift visuals.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <!-- CARD 6 -->
+      
+          <!-- CARD 6 -->
       <article class="card">
         <div class="thumb"><span>Image: Sixth Project</span></div>
         <div class="card-body">
@@ -269,16 +266,15 @@
   <section id="about" class="container" aria-label="About">
     <div class="section-head">
       <h2>About</h2>
-      <p>Short, professional, human.</p>
+      <p>Hands‑on, results‑driven.</p>
     </div>
     <div class="about">
-      <!-- Swap this placeholder with your own headshot: ./assets/john.jpg -->
       <div class="avatar">
         <img src="https://via.placeholder.com/480x480.png?text=Your+Headshot" alt="John Dennis headshot placeholder" />
       </div>
       <div>
-        <p>I’m John Dennis, an AI/ML educator and builder. I design hands‑on projects — from RAG systems and agents to forecasting and computer vision — and explain them clearly for learners and hiring teams. I use AWS (S3, CloudFront, SageMaker), Python, and modern ML tooling across the stack.</p>
-        <p>Previously: technical curriculum writer, mentor, and speaker. I enjoy turning complex ideas into approachable demos and docs.</p>
+        <p>I’m John Dennis, a data science and AI/ML practitioner focused on turning ideas into working products. I build retrieval systems, intelligent agents, forecasting pipelines, and computer vision apps with Python and AWS.</p>
+        <p>Strengths: clear problem framing, clean implementation, measurable results, and dependable deployments (S3 + CloudFront + SageMaker + CI/CD).</p>
       </div>
     </div>
   </section>
@@ -316,9 +312,9 @@
       function makeStars(){
         stars.length = 0;
         const rect = canvas.getBoundingClientRect();
-        const count = Math.min(420, Math.floor((rect.width*rect.height)/8000));
+        const count = Math.min(600, Math.floor((rect.width*rect.height)/6000));
         for(let i=0;i<count;i++){
-          stars.push({ x: Math.random()*w, y: Math.random()*h, r: rand(.3,1.6), a: rand(.4,.95), tw: rand(.004,.02), p: Math.random()*Math.PI*2 });
+          stars.push({ x: Math.random()*w, y: Math.random()*h, r: rand(.8,2.0), a: rand(.85,1.0), tw: rand(.004,.02), p: Math.random()*Math.PI*2 });
         }
       }
       function resize(){
