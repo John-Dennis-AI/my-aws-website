@@ -26,17 +26,15 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      padding-left: 240px;
+      padding-left: 240px; /* makes room for the sticky left nav */
     }
 
     a { color: var(--accent); text-decoration: none }
 
-    /* Sidebar */
+    /* Sticky left sidebar */
     .sidenav {
       position: fixed;
-      left: 0;
-      top: 0;
-      bottom: 0;
+      left: 0; top: 0; bottom: 0;
       width: 240px;
       background: rgba(11, 18, 32, .8);
       border-right: 1px solid rgba(255, 255, 255, .06);
@@ -44,7 +42,6 @@
       padding: 22px 16px;
       z-index: 1000;
     }
-
     .sidenav .brand { font-weight: 800; margin-bottom: 16px; }
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
     .sidenav a { color: var(--text); padding: 10px 12px; border-radius: 10px; }
@@ -52,7 +49,7 @@
 
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* Hero with Starfield */
+    /* Hero with starfield */
     .hero {
       position: relative;
       overflow: hidden;
@@ -60,55 +57,56 @@
       display: grid;
       align-items: center;
     }
-
     .sky {
       background:
         radial-gradient(1200px 700px at 70% -10%, #1c2c5c 0%, rgba(11, 18, 32, 0) 60%),
         radial-gradient(1000px 600px at 20% -20%, #13274b 0%, rgba(11, 18, 32, 0) 60%),
         var(--bg);
-      position: absolute;
-      inset: 0;
+      position: absolute; inset: 0;
     }
 
-    /* Randomized stars layers (smaller + more of them) */
-    .stars1, .stars2, .stars3 {
-      position: absolute;
-      inset: 0;
+    /* Randomized stars layers — smaller tiles + more stars + extra layer */
+    .stars1, .stars2, .stars3, .stars4 {
+      position: absolute; inset: 0;
       background-repeat: repeat;
       background-size: cover;
+      pointer-events: none;
     }
 
+    /* Reduced tile size ~40% for each layer (more repetitions -> denser stars) */
     .stars1 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="20" cy="30" r="0.2" fill="white"/><circle cx="80" cy="20" r="0.25" fill="white"/><circle cx="50" cy="90" r="0.18" fill="white"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60"><circle cx="10" cy="20" r="0.2" fill="white"/><circle cx="40" cy="10" r="0.25" fill="white"/><circle cx="30" cy="50" r="0.18" fill="white"/></svg>');
       animation: moveStars1 120s linear infinite;
+      opacity: 1.0;
+    }
+    .stars2 {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="90" height="90"><circle cx="36" cy="60" r="0.25" fill="white"/><circle cx="72" cy="30" r="0.2" fill="white"/><circle cx="12" cy="18" r="0.28" fill="white"/></svg>');
+      animation: moveStars2 180s linear infinite;
       opacity: 0.9;
     }
-
-    .stars2 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150"><circle cx="60" cy="100" r="0.25" fill="white"/><circle cx="120" cy="50" r="0.2" fill="white"/><circle cx="10" cy="20" r="0.28" fill="white"/></svg>');
-      animation: moveStars2 180s linear infinite;
+    .stars3 {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><circle cx="100" cy="24" r="0.22" fill="white"/><circle cx="42" cy="96" r="0.2" fill="white"/><circle cx="18" cy="48" r="0.23" fill="white"/></svg>');
+      animation: moveStars3 240s linear infinite;
       opacity: 0.8;
     }
-
-    .stars3 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><circle cx="180" cy="40" r="0.22" fill="white"/><circle cx="70" cy="150" r="0.2" fill="white"/><circle cx="30" cy="60" r="0.23" fill="white"/></svg>');
-      animation: moveStars3 240s linear infinite;
+    /* New extra layer for depth */
+    .stars4 {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="20" cy="30" r="0.18" fill="white"/><circle cx="60" cy="20" r="0.2" fill="white"/><circle cx="40" cy="60" r="0.18" fill="white"/></svg>');
+      animation: moveStars4 300s linear infinite;
       opacity: 0.7;
     }
 
     @keyframes moveStars1 { from { background-position: 0 0; } to { background-position: -4000px 0; } }
-    @keyframes moveStars2 { from { background-position: 0 0; } to { background-position: -3000px 0; } }
-    @keyframes moveStars3 { from { background-position: 0 0; } to { background-position: -2000px 0; } }
+    @keyframes moveStars2 { from { background-position: 0 0; } to { background-position: -3200px 0; } }
+    @keyframes moveStars3 { from { background-position: 0 0; } to { background-position: -2600px 0; } }
+    @keyframes moveStars4 { from { background-position: 0 0; } to { background-position: -2200px 0; } }
 
     .mountains {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 26vh;
+      position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 26vh;
+      pointer-events: none;
     }
-
-    /* Lighter mountains */
+    /* Lighter blue mountains for contrast */
     .mountains path:nth-child(1) { fill: #4d6fa9; }
     .mountains path:nth-child(2) { fill: #6f8fbc; }
 
@@ -119,11 +117,12 @@
       margin: 0;
       z-index: 2;
       position: relative;
+      text-wrap: balance;
     }
-
     .hero-content { position: relative; z-index: 3; padding: 80px 0; }
 
     /* Projects Grid */
+    section { padding: 70px 0; }
     .grid { display: grid; gap: 20px; }
     @media (min-width:700px){.grid{grid-template-columns: repeat(2, 1fr);}}
     @media (min-width:1024px){.grid{grid-template-columns: repeat(3, 1fr);}}
@@ -137,7 +136,6 @@
       display: flex;
       flex-direction: column;
     }
-
     .thumb { aspect-ratio: 16/9; background:#0c1428; display:flex; align-items:center; justify-content:center; color:#6f87b7; font-size:14px; }
     .card-body { padding:16px; }
     .tags { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 14px; }
@@ -156,12 +154,11 @@
 
     footer { padding:40px 0 70px; color:var(--muted); }
     .foot-links { display:flex; gap:16px; flex-wrap:wrap; }
-
   </style>
 </head>
 
 <body>
-  <aside class="sidenav">
+  <aside class="sidenav" aria-label="Site navigation">
     <div class="brand">John Dennis • Data Science & AI/ML</div>
     <nav>
       <a href="#projects">Projects</a>
@@ -170,13 +167,14 @@
     </nav>
   </aside>
 
-  <header class="hero">
+  <header class="hero" aria-label="Intro">
     <div class="sky"></div>
     <div class="stars1"></div>
     <div class="stars2"></div>
     <div class="stars3"></div>
+    <div class="stars4"></div>
 
-    <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none">
+    <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
       <path d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
       <path d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z"/>
     </svg>
@@ -186,7 +184,7 @@
     </div>
   </header>
 
-  <main id="projects" class="container">
+  <main id="projects" class="container" aria-label="Projects">
     <h2>Featured Projects</h2>
     <div class="grid">
       <article class="card">
@@ -269,7 +267,7 @@
     </div>
   </main>
 
-  <section id="about" class="container">
+  <section id="about" class="container" aria-label="About">
     <h2>About</h2>
     <div class="about">
       <div class="avatar">
@@ -282,7 +280,7 @@
     </div>
   </section>
 
-  <section id="contact" class="container">
+  <section id="contact" class="container" aria-label="Contact">
     <h2>Contact</h2>
     <div class="foot-links">
       <a href="mailto:john@example.com">📧 john@example.com</a>
@@ -291,7 +289,7 @@
     </div>
   </section>
 
-  <footer class="container">
+  <footer class="container" role="contentinfo">
     <p>© <span id="year"></span> John Dennis. All rights reserved.</p>
   </footer>
 
