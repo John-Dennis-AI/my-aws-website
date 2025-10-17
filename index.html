@@ -144,6 +144,13 @@
       position: relative;
       text-wrap: balance;
     }
+    .headline-line {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, var(--accent), transparent);
+      width: 60%;
+      margin: 16px 0;
+    }
     .headline .subline {
       display: block;
       font-size: 0.7em;   /* makes it 70% of the main headline size */
@@ -227,10 +234,11 @@
 
     <div class="container hero-content">
       <h1 class="headline">
-        Hi — I'm John Dennis! <br>
-        <span class="subline">
-          I develop Data Science, AI, & Machine Learning projects, and I specialize in RAG, Agentic, and Multi-Modal systems.
-        </span><br>
+      Hi — I'm John Dennis!
+      <hr class="headline-line">
+      <span class="subline">
+        I develop Data Science, AI, & Machine Learning projects, and I specialize in RAG, Agentic, and Multi-Modal systems.
+      </span>
         <span class="subline">
           Scroll down to learn more about me and the projects I've worked on...
         </span>
@@ -253,8 +261,8 @@
           <li> B.S. in Electrical Engineering</li>
           <li> AWS Certified AI Practitioner</li>
           <li> AWS Certified Cloud Practitioner</li>
-          <li> AWS Customer Council Member<li>
-          <li> Databricks Generative AI Accreditation<li>
+          <li> AWS Customer Council Member</li>
+          <li> Databricks Generative AI Accreditation</li>
           <li> AI/ML Bootcamp Instructor & Curriculum Developer</li>
           <li> Expertise in RAG systems, LangChain, SageMaker, and MLOps</li>
         </ul>
