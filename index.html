@@ -74,26 +74,21 @@
       z-index: 0;
     }
 
-    /* NEW: Milky Way glow band (behind stars, above base sky) */
+    /* Milky Way glow band (behind stars, above base sky) */
     .milkyway {
       position: absolute; inset: -20% -10%;
       transform: rotate(-18deg) translateY(-2%);
-      z-index: 1; /* sits beneath stars */
+      z-index: 1; /* beneath stars */
       pointer-events: none;
-      /* Core glow using layered ellipses */
       background:
         radial-gradient(ellipse 70% 130% at 55% 45%, rgba(210,225,255,0.14) 0%, rgba(210,225,255,0.08) 35%, rgba(20,30,60,0) 70%),
         radial-gradient(ellipse 55% 90%  at 45% 55%, rgba(180,200,255,0.12) 0%, rgba(180,200,255,0.06) 40%, rgba(20,30,60,0) 72%),
         radial-gradient(ellipse 40% 65%  at 60% 40%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.00) 70%);
       filter: blur(12px);
       opacity: .55;
-      /* Mask to keep it as a soft diagonal band with tapered edges */
-      -webkit-mask-image:
-        linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
-              mask-image:
-        linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
     }
-    /* Fine “stardust” texture inside the band */
     .milkyway::after {
       content: "";
       position: absolute; inset: 0;
@@ -110,56 +105,23 @@
       mix-blend-mode: screen;
       opacity: .28;
       filter: blur(.2px);
-      -webkit-mask-image:
-        linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
-              mask-image:
-        linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
-    /* Randomized stars layers — smaller tiles + more stars + 7 layers total */
+    /* Stars × 7 */
     .stars1, .stars2, .stars3, .stars4, .stars5, .stars6, .stars7 {
       position: absolute; inset: 0;
-      background-repeat: repeat;
-      background-size: cover;
-      pointer-events: none;
-      z-index: 2; /* above milkyway */
+      background-repeat: repeat; background-size: cover; pointer-events: none;
+      z-index: 2;
     }
-
-    .stars1 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.18" fill="white"/><circle cx="40" cy="10" r="0.22" fill="white"/><circle cx="28" cy="46" r="0.18" fill="white"/></svg>');
-      animation: moveStars1 120s linear infinite;
-      opacity: 1.0;
-    }
-    .stars2 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.22" fill="white"/><circle cx="64" cy="24" r="0.18" fill="white"/><circle cx="12" cy="16" r="0.24" fill="white"/></svg>');
-      animation: moveStars2 170s linear infinite;
-      opacity: 0.92;
-    }
-    .stars3 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.2" fill="white"/><circle cx="38" cy="80" r="0.18" fill="white"/><circle cx="16" cy="44" r="0.21" fill="white"/></svg>');
-      animation: moveStars3 210s linear infinite;
-      opacity: 0.86;
-    }
-    .stars4 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="18" cy="28" r="0.16" fill="white"/><circle cx="52" cy="18" r="0.19" fill="white"/><circle cx="36" cy="56" r="0.17" fill="white"/></svg>');
-      animation: moveStars4 260s linear infinite;
-      opacity: 0.78;
-    }
-    .stars5 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="10" cy="12" r="0.16" fill="white"/><circle cx="54" cy="40" r="0.18" fill="white"/><circle cx="28" cy="50" r="0.16" fill="white"/></svg>');
-      animation: moveStars5 300s linear infinite;
-      opacity: 0.7;
-    }
-    .stars6 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="70" cy="18" r="0.18" fill="white"/><circle cx="22" cy="72" r="0.16" fill="white"/><circle cx="16" cy="36" r="0.18" fill="white"/></svg>');
-      animation: moveStars6 360s linear infinite;
-      opacity: 0.6;
-    }
-    .stars7 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="78" cy="22" r="0.17" fill="white"/><circle cx="40" cy="84" r="0.15" fill="white"/><circle cx="12" cy="40" r="0.17" fill="white"/></svg>');
-      animation: moveStars7 420s linear infinite;
-      opacity: 0.5;
-    }
+    .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.18" fill="white"/><circle cx="40" cy="10" r="0.22" fill="white"/><circle cx="28" cy="46" r="0.18" fill="white"/></svg>'); animation: moveStars1 120s linear infinite; opacity: 1; }
+    .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.22" fill="white"/><circle cx="64" cy="24" r="0.18" fill="white"/><circle cx="12" cy="16" r="0.24" fill="white"/></svg>'); animation: moveStars2 170s linear infinite; opacity: .92; }
+    .stars3 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.2" fill="white"/><circle cx="38" cy="80" r="0.18" fill="white"/><circle cx="16" cy="44" r="0.21" fill="white"/></svg>'); animation: moveStars3 210s linear infinite; opacity: .86; }
+    .stars4 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="18" cy="28" r="0.16" fill="white"/><circle cx="52" cy="18" r="0.19" fill="white"/><circle cx="36" cy="56" r="0.17" fill="white"/></svg>'); animation: moveStars4 260s linear infinite; opacity: .78; }
+    .stars5 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="10" cy="12" r="0.16" fill="white"/><circle cx="54" cy="40" r="0.18" fill="white"/><circle cx="28" cy="50" r="0.16" fill="white"/></svg>'); animation: moveStars5 300s linear infinite; opacity: .7; }
+    .stars6 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="70" cy="18" r="0.18" fill="white"/><circle cx="22" cy="72" r="0.16" fill="white"/><circle cx="16" cy="36" r="0.18" fill="white"/></svg>'); animation: moveStars6 360s linear infinite; opacity: .6; }
+    .stars7 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="78" cy="22" r="0.17" fill="white"/><circle cx="40" cy="84" r="0.15" fill="white"/><circle cx="12" cy="40" r="0.17" fill="white"/></svg>'); animation: moveStars7 420s linear infinite; opacity: .5; }
 
     @keyframes moveStars1 { from { background-position: 0 0; } to { background-position: -4200px 0; } }
     @keyframes moveStars2 { from { background-position: 0 0; } to { background-position: -3600px 0; } }
@@ -169,13 +131,7 @@
     @keyframes moveStars6 { from { background-position: 0 0; } to { background-position: -1800px 0; } }
     @keyframes moveStars7 { from { background-position: 0 0; } to { background-position: -1400px 0; } }
 
-    .mountains {
-      position: absolute; bottom: 0; left: 0;
-      width: 100%; height: 26vh;
-      pointer-events: none;
-      z-index: 3;
-    }
-    /* Lighter blue mountains for contrast */
+    .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 26vh; pointer-events: none; z-index: 3; }
     .mountains path:nth-child(1) { fill: #4d6fa9; }
     .mountains path:nth-child(2) { fill: #6f8fbc; }
 
@@ -199,24 +155,29 @@
     @media (min-width:700px){.grid{grid-template-columns: repeat(2, 1fr);}}
     @media (min-width:1024px){.grid{grid-template-columns: repeat(3, 1fr);}}
 
+    /* Clickable cards (anchor as card) */
     .card {
+      display: flex; flex-direction: column;
       background: var(--panel);
       border: 1px solid rgba(255,255,255,.06);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
+      color: var(--text);
+      text-decoration: none;
+      transition: transform .12s ease, border-color .12s ease;
     }
-    .thumb { aspect-ratio: 16/9; background:#0c1428; display:flex; align-items:center; justify-content:center; color:#6f87b7; font-size:14px; }
+    .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.18); }
+
+    /* Thumbnail area reserves space for your image */
+    .thumb { aspect-ratio: 16/9; background:#0c1428; }
+    .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+
     .card-body { padding:16px; }
     .tags { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 14px; }
     .tag { font-size:12px; padding:4px 8px; border:1px solid rgba(255,255,255,.12); border-radius:999px; color:var(--muted); }
     .card h3 { margin:0 0 6px; font-size:18px; }
     .card p { margin:0 0 14px; color:var(--muted); }
-    .actions { display:flex; gap:10px; margin-top:auto; padding:0 16px 16px; }
-    .actions a { flex:1; text-align:center; border-radius:10px; padding:10px 12px; border:1px solid rgba(255,255,255,.14); color:var(--text); }
-    .actions a.primary { background:var(--accent); color:#0b1220; border-color:transparent; font-weight:700; }
 
     /* About */
     .about { display:grid; gap:24px; align-items:center; }
@@ -233,15 +194,17 @@
   <aside class="sidenav" aria-label="Site navigation">
     <div class="brand">John Dennis • Data Science & AI/ML</div>
     <nav>
-      <a href="#projects">Projects</a>
+      <a href="#top">Top</a>
       <a href="#about">About</a>
+      <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
   </aside>
 
-  <header class="hero" aria-label="Intro">
+  <!-- Give the hero an id so the Top link scrolls here -->
+  <header id="top" class="hero" aria-label="Intro">
     <div class="sky"></div>
-    <div class="milkyway"></div><!-- NEW glow band -->
+    <div class="milkyway"></div>
     <div class="stars1"></div>
     <div class="stars2"></div>
     <div class="stars3"></div>
@@ -260,89 +223,7 @@
     </div>
   </header>
 
-  <main id="projects" class="container" aria-label="Projects">
-    <h2>Featured Projects</h2>
-    <div class="grid">
-      <article class="card">
-        <div class="thumb"><span>RAG Chatbot</span></div>
-        <div class="card-body">
-          <h3>RAG Chatbot System</h3>
-          <div class="tags"><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">AWS</span></div>
-          <p>Retrieval-augmented generation with document ingestion, semantic search, and citations.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="thumb"><span>Image Classifier</span></div>
-        <div class="card-body">
-          <h3>SageMaker Image Classifier</h3>
-          <div class="tags"><span class="tag">SageMaker</span><span class="tag">PyTorch</span><span class="tag">CV</span></div>
-          <p>End-to-end training and deployment walkthrough using AWS SageMaker.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="thumb"><span>Voice Agent</span></div>
-        <div class="card-body">
-          <h3>Realtime Voice Agent</h3>
-          <div class="tags"><span class="tag">Streaming</span><span class="tag">ASR/TTS</span><span class="tag">WebRTC</span></div>
-          <p>Conversational agent with low-latency speech pipeline and tool-use actions.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="thumb"><span>Trading Models</span></div>
-        <div class="card-body">
-          <h3>Next-Day Price Prediction</h3>
-          <div class="tags"><span class="tag">SARIMA</span><span class="tag">LSTM</span><span class="tag">sklearn</span></div>
-          <p>Compare classical vs deep learning forecasts on equities with interpretable metrics.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Report</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="thumb"><span>BikeEase</span></div>
-        <div class="card-body">
-          <h3>BikeEase Generative Ads</h3>
-          <div class="tags"><span class="tag">GenAI</span><span class="tag">Prompting</span><span class="tag">UX</span></div>
-          <p>Interactive ad copy builder with presets, memory, and export to Markdown.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="thumb"><span>Monitoring</span></div>
-        <div class="card-body">
-          <h3>Model Cards & Monitoring</h3>
-          <div class="tags"><span class="tag">AWS</span><span class="tag">MLOps</span><span class="tag">Dashboards</span></div>
-          <p>Lightweight governance demo with evaluation metrics, model cards, and drift visuals.</p>
-        </div>
-        <div class="actions">
-          <a class="primary" href="#">Live Demo</a>
-          <a href="#">GitHub Repo</a>
-        </div>
-      </article>
-    </div>
-  </main>
-
+  <!-- About moved ABOVE Projects -->
   <section id="about" class="container" aria-label="About">
     <h2>About</h2>
     <div class="about">
@@ -355,6 +236,66 @@
       </div>
     </div>
   </section>
+
+  <main id="projects" class="container" aria-label="Projects">
+    <h2>Featured Projects</h2>
+    <div class="grid">
+      <!-- Each card is now a clickable <a>; replace href and img src with your own -->
+      <a class="card" href="#" target="_blank" rel="noopener" aria-label="RAG Chatbot System">
+        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=RAG+Chatbot+Thumbnail" alt="RAG Chatbot thumbnail"></div>
+        <div class="card-body">
+          <h3>RAG Chatbot System</h3>
+          <div class="tags"><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">AWS</span></div>
+          <p>Retrieval-augmented generation with document ingestion, semantic search, and citations.</p>
+        </div>
+      </a>
+
+      <a class="card" href="#" target="_blank" rel="noopener" aria-label="SageMaker Image Classifier">
+        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Image+Classifier+Thumbnail" alt="Image Classifier thumbnail"></div>
+        <div class="card-body">
+          <h3>SageMaker Image Classifier</h3>
+          <div class="tags"><span class="tag">SageMaker</span><span class="tag">PyTorch</span><span class="tag">CV</span></div>
+          <p>End-to-end training and deployment walkthrough using AWS SageMaker.</p>
+        </div>
+      </a>
+
+      <a class="card" href="#" target="_blank" rel="noopener" aria-label="Realtime Voice Agent">
+        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Voice+Agent+Thumbnail" alt="Voice Agent thumbnail"></div>
+        <div class="card-body">
+          <h3>Realtime Voice Agent</h3>
+          <div class="tags"><span class="tag">Streaming</span><span class="tag">ASR/TTS</span><span class="tag">WebRTC</span></div>
+          <p>Conversational agent with low-latency speech pipeline and tool-use actions.</p>
+        </div>
+      </a>
+
+      <a class="card" href="#" target="_blank" rel="noopener" aria-label="Next-Day Price Prediction">
+        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Forecasting+Thumbnail" alt="Next-Day Price Prediction thumbnail"></div>
+        <div class="card-body">
+          <h3>Next-Day Price Prediction</h3>
+          <div class="tags"><span class="tag">SARIMA</span><span class="tag">LSTM</span><span class="tag">sklearn</span></div>
+          <p>Compare classical vs deep learning forecasts on equities with interpretable metrics.</p>
+        </div>
+      </a>
+
+      <a class="card" href="#" target="_blank" rel="noopener" aria-label="BikeEase Generative Ads">
+        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=BikeEase+Thumbnail" alt="BikeEase Generative Ads thumbnail"></div>
+        <div class="card-body">
+          <h3>BikeEase Generative Ads</h3>
+          <div class="tags"><span class="tag">GenAI</span><span class="tag">Prompting</span><span class="tag">UX</span></div>
+          <p>Interactive ad copy builder with presets, memory, and export to Markdown.</p>
+        </div>
+      </a>
+
+      <a class="card" href="#" target="_blank" rel="noopener" aria-label="Model Cards & Monitoring">
+        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Monitoring+Thumbnail" alt="Model Cards & Monitoring thumbnail"></div>
+        <div class="card-body">
+          <h3>Model Cards & Monitoring</h3>
+          <div class="tags"><span class="tag">AWS</span><span class="tag">MLOps</span><span class="tag">Dashboards</span></div>
+          <p>Lightweight governance demo with evaluation metrics, model cards, and drift visuals.</p>
+        </div>
+      </a>
+    </div>
+  </main>
 
   <section id="contact" class="container" aria-label="Contact">
     <h2>Contact</h2>
@@ -375,7 +316,10 @@
 
     // Active link highlighting (IntersectionObserver)
     const navLinks = Array.from(document.querySelectorAll('.sidenav nav a'));
-    const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const sections = navLinks
+      .map(a => document.querySelector(a.getAttribute('href')))
+      .filter(Boolean); // skips anything that isn't an in-page id
+
     const byId = Object.fromEntries(navLinks.map(a => [a.getAttribute('href'), a]));
 
     const io = new IntersectionObserver((entries) => {
@@ -388,7 +332,11 @@
           link.classList.add('active');
         }
       });
-    }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0.1 });
+    }, {
+      root: null,
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: 0.1
+    });
 
     sections.forEach(sec => io.observe(sec));
   </script>
