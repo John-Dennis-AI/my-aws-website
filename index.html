@@ -18,7 +18,6 @@
       --maxw: 1100px;
     }
 
-    /* Smooth scrolling */
     html { scroll-behavior: smooth; }
 
     body {
@@ -29,12 +28,11 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      padding-left: 240px; /* room for the sticky left nav */
+      padding-left: 240px;
     }
 
     a { color: var(--accent); text-decoration: none }
 
-    /* Sticky left sidebar */
     .sidenav {
       position: fixed;
       left: 0; top: 0; bottom: 0;
@@ -53,7 +51,6 @@
 
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* Hero with starfield + Milky Way */
     .hero { position: relative; overflow: hidden; min-height: 72vh; display: grid; align-items: center; }
     .sky {
       background:
@@ -92,7 +89,6 @@
               mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
-    /* Stars × 7 */
     .stars1,.stars2,.stars3,.stars4,.stars5,.stars6,.stars7 {
       position: absolute; inset: 0; background-repeat: repeat; background-size: cover; pointer-events: none; z-index: 2;
     }
@@ -135,16 +131,13 @@
     }
     .hero-content { position: relative; z-index: 4; padding: 80px 0; }
 
-    /* Sections */
     section { padding: 70px 0; }
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* Projects Grid */
     .grid { display: grid; gap: 20px; }
     @media (min-width:700px){.grid{grid-template-columns: repeat(2, 1fr);}}
     @media (min-width:1024px){.grid{grid-template-columns: repeat(3, 1fr);}}
 
-    /* Clickable cards (anchor as card) */
     .card {
       display: flex; flex-direction: column;
       background: var(--panel);
@@ -167,7 +160,6 @@
     .card h3 { margin:0 0 6px; font-size:18px; }
     .card p { margin:0 0 14px; color:var(--muted); }
 
-    /* About */
     .about { display:grid; gap:24px; align-items:center; }
     @media (min-width:860px){.about{grid-template-columns: 260px 1fr;}}
     .avatar { width:240px; height:240px; border-radius:50%; overflow:hidden; border:3px solid rgba(255,255,255,.18); box-shadow:var(--shadow); }
@@ -185,25 +177,12 @@
     footer { padding:40px 0 70px; color:var(--muted); }
     .foot-links { display:flex; gap:16px; flex-wrap:wrap; }
 
-    /* Contact extras */
     .contact p { color: var(--muted); }
-    .contact-list {
-      list-style: none; padding-left: 0; margin: 12px 0 18px;
-    }
-    .contact-list li {
-      margin-bottom: 8px; color: var(--muted);
-    }
-    .cta-buttons {
-      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px;
-    }
-    .btn {
-      display: inline-block; padding: 10px 14px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14); color: var(--text);
-      text-decoration: none;
-    }
-    .btn.primary {
-      background: var(--accent); color: #0b1220; border-color: transparent; font-weight: 700;
-    }
+    .contact-list { list-style: none; padding-left: 0; margin: 12px 0 18px; }
+    .contact-list li { margin-bottom: 8px; color: var(--muted); }
+    .cta-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+    .btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); color: var(--text); text-decoration: none; }
+    .btn.primary { background: var(--accent); color: #0b1220; border-color: transparent; font-weight: 700; }
   </style>
 </head>
 
@@ -218,7 +197,6 @@
     </nav>
   </aside>
 
-  <!-- Give the hero an id so the Top link s here -->
   <header id="top" class="hero" aria-label="Intro">
     <div class="sky"></div>
     <div class="milkyway"></div>
@@ -250,12 +228,11 @@
     </div>
   </header>
 
-  <!-- About -->
   <section id="about" class="container" aria-label="About">
     <h2>About</h2>
     <div class="about">
       <div class="avatar">
-        <img src="https://via.placeholder.com/480x480.png?text=Your+Headshot" alt="John Dennis headshot" />
+        <img src="assets/img/headshot.jpg" alt="John Dennis headshot" />
       </div>
       <div>
         <p style="font-size: 2em;">Here are some quick highlights about me...</p>
@@ -274,13 +251,12 @@
     </div>
   </section>
 
-  <!-- Projects -->
   <main id="projects" class="container" aria-label="Projects">
     <h2>Featured Projects</h2>
     <div class="grid">
-      <!-- Each card is a clickable <a>; replace href and img src with your own -->
-      <a class="card" href="#" target="_blank" rel="noopener" aria-label="RAG Chatbot System">
-        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=RAG+Chatbot+Thumbnail" alt="RAG Chatbot thumbnail"></div>
+      <!-- Link to existing project page -->
+      <a class="card" href="projects/rag-project.html" aria-label="RAG Chatbot System">
+        <div class="thumb"><img src="projects/rag-project/thumb.jpg" alt="RAG Chatbot thumbnail"></div>
         <div class="card-body">
           <h3>RAG Chatbot System</h3>
           <div class="tags"><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">AWS</span></div>
@@ -288,8 +264,9 @@
         </div>
       </a>
 
-      <a class="card" href="#" target="_blank" rel="noopener" aria-label="SageMaker Image Classifier">
-        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Image+Classifier+Thumbnail" alt="Image Classifier thumbnail"></div>
+      <!-- Link to existing project page -->
+      <a class="card" href="projects/agent-workflow.html" aria-label="SageMaker Image Classifier">
+        <div class="thumb"><img src="projects/agent-workflow/thumb.jpg" alt="Agent Workflow thumbnail"></div>
         <div class="card-body">
           <h3>SageMaker Image Classifier</h3>
           <div class="tags"><span class="tag">SageMaker</span><span class="tag">PyTorch</span><span class="tag">CV</span></div>
@@ -297,8 +274,9 @@
         </div>
       </a>
 
-      <a class="card" href="#" target="_blank" rel="noopener" aria-label="Realtime Voice Agent">
-        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Voice+Agent+Thumbnail" alt="Voice Agent thumbnail"></div>
+      <!-- Placeholder links until pages exist -->
+      <a class="card" href="#" aria-label="Realtime Voice Agent">
+        <div class="thumb"><img src="projects/realtime-voice-agent/thumb.jpg" alt="Realtime Voice Agent thumbnail"></div>
         <div class="card-body">
           <h3>Realtime Voice Agent</h3>
           <div class="tags"><span class="tag">Streaming</span><span class="tag">ASR/TTS</span><span class="tag">WebRTC</span></div>
@@ -306,8 +284,8 @@
         </div>
       </a>
 
-      <a class="card" href="#" target="_blank" rel="noopener" aria-label="Next-Day Price Prediction">
-        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Forecasting+Thumbnail" alt="Next-Day Price Prediction thumbnail"></div>
+      <a class="card" href="#" aria-label="Next-Day Price Prediction">
+        <div class="thumb"><img src="projects/next-day-price/thumb.jpg" alt="Next-Day Price Prediction thumbnail"></div>
         <div class="card-body">
           <h3>Next-Day Price Prediction</h3>
           <div class="tags"><span class="tag">SARIMA</span><span class="tag">LSTM</span><span class="tag">sklearn</span></div>
@@ -315,8 +293,8 @@
         </div>
       </a>
 
-      <a class="card" href="#" target="_blank" rel="noopener" aria-label="BikeEase Generative Ads">
-        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=BikeEase+Thumbnail" alt="BikeEase Generative Ads thumbnail"></div>
+      <a class="card" href="#" aria-label="BikeEase Generative Ads">
+        <div class="thumb"><img src="projects/bikeease-gen-ads/thumb.jpg" alt="BikeEase Generative Ads thumbnail"></div>
         <div class="card-body">
           <h3>BikeEase Generative Ads</h3>
           <div class="tags"><span class="tag">GenAI</span><span class="tag">Prompting</span><span class="tag">UX</span></div>
@@ -324,8 +302,8 @@
         </div>
       </a>
 
-      <a class="card" href="#" target="_blank" rel="noopener" aria-label="Model Cards & Monitoring">
-        <div class="thumb"><img src="https://via.placeholder.com/800x450.png?text=Monitoring+Thumbnail" alt="Model Cards & Monitoring thumbnail"></div>
+      <a class="card" href="#" aria-label="Model Cards & Monitoring">
+        <div class="thumb"><img src="projects/model-cards-monitoring/thumb.jpg" alt="Model Cards & Monitoring thumbnail"></div>
         <div class="card-body">
           <h3>Model Cards & Monitoring</h3>
           <div class="tags"><span class="tag">AWS</span><span class="tag">MLOps</span><span class="tag">Dashboards</span></div>
@@ -335,20 +313,19 @@
     </div>
   </main>
 
-  <!-- Contact -->
   <section id="contact" class="container contact" aria-label="Contact">
     <h2>Contact</h2>
     <p>I’m always happy to connect about data science, AI/ML projects, and collaborations.</p>
     <ul class="contact-list">
       <li>📧 Prefer email? <a href="mailto:john@example.com">john@example.com</a></li>
       <li>🗓️ Want to chat? <a href="#" target="_blank" rel="noopener">Book a short call</a></li>
-      <li>📄 Grab my résumé: <a href="./John-Dennis-Resume.pdf" download>Download Résumé (PDF)</a></li>
+      <li>📄 Grab my résumé: <a href="assets/pdf/John-Dennis-Resume.pdf" download>Download Résumé (PDF)</a></li>
       <li>🔗 Connect with me: <a href="https://www.linkedin.com/in/john-dennis-ai" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://github.com/John-Dennis-AI" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
 
     <div class="cta-buttons">
       <a class="btn primary" href="mailto:john@example.com">Email Me</a>
-      <a class="btn" href="./John-Dennis-Resume.pdf" download>Download Résumé (PDF)</a>
+      <a class="btn" href="assets/pdf/John-Dennis-Resume.pdf" download>Download Résumé (PDF)</a>
       <a class="btn" href="#" target="_blank" rel="noopener">Book a Call</a>
       <a class="btn" href="https://www.linkedin.com/in/john-dennis-ai" target="_blank" rel="noopener">LinkedIn</a>
       <a class="btn" href="https://github.com/John-Dennis-AI" target="_blank" rel="noopener">GitHub</a>
@@ -360,10 +337,8 @@
   </footer>
 
   <script>
-    // Footer year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Active link highlighting (IntersectionObserver) + bottom-of-page fallback
     const navLinks = Array.from(document.querySelectorAll('.sidenav nav a'));
     const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
     const byId = Object.fromEntries(navLinks.map(a => [a.getAttribute('href'), a]));
@@ -386,7 +361,7 @@
 
     sections.forEach(sec => io.observe(sec));
 
-    // When you reach the true bottom of the page, force-highlight Contact.
+    // Force-highlight Contact at true bottom of page
     window.addEventListener('scroll', () => {
       const scrollBottom = window.scrollY + window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
