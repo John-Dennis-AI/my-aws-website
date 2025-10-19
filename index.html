@@ -212,8 +212,9 @@
     .avatar img {
       width: 100%;
       height: 100%;
-      object-fit: cover;          /* fills the circular frame */
-      object-position: center 30%; /* shift image slightly downward so forehead is trimmed less */
+      object-fit: contain;     /* zooms out so your whole face fits */
+      object-position: center; /* keeps you centered */
+      background-color: var(--bg); /* fills gaps if any appear */
     }
     .about p { color:var(--muted); }
 
