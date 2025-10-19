@@ -89,24 +89,43 @@
               mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
+    /* ===========================
+       Stars: GPU-smooth transforms
+       =========================== */
     .stars1,.stars2,.stars3,.stars4,.stars5,.stars6,.stars7 {
-      position: absolute; inset: 0; background-repeat: repeat; background-size: cover; pointer-events: none; z-index: 2;
+      position: absolute; inset: 0;
+      background-repeat: repeat;
+      background-size: auto;       /* avoid re-scaling every frame */
+      pointer-events: none;
+      z-index: 2;
+      will-change: transform;      /* compositing hint */
+      transform: translateZ(0);    /* force GPU layer */
+      animation-timing-function: linear;
+      image-rendering: auto;
     }
-    .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.18" fill="white"/><circle cx="40" cy="10" r="0.22" fill="white"/><circle cx="28" cy="46" r="0.18" fill="white"/></svg>'); animation: move1 120s linear infinite; opacity: 1; }
-    .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.22" fill="white"/><circle cx="64" cy="24" r="0.18" fill="white"/><circle cx="12" cy="16" r="0.24" fill="white"/></svg>'); animation: move2 170s linear infinite; opacity: .92; }
-    .stars3 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.2" fill="white"/><circle cx="38" cy="80" r="0.18" fill="white"/><circle cx="16" cy="44" r="0.21" fill="white"/></svg>'); animation: move3 210s linear infinite; opacity: .86; }
-    .stars4 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="18" cy="28" r="0.16" fill="white"/><circle cx="52" cy="18" r="0.19" fill="white"/><circle cx="36" cy="56" r="0.17" fill="white"/></svg>'); animation: move4 260s linear infinite; opacity: .78; }
-    .stars5 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="10" cy="12" r="0.16" fill="white"/><circle cx="54" cy="40" r="0.18" fill="white"/><circle cx="28" cy="50" r="0.16" fill="white"/></svg>'); animation: move5 300s linear infinite; opacity: .7; }
-    .stars6 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="70" cy="18" r="0.18" fill="white"/><circle cx="22" cy="72" r="0.16" fill="white"/><circle cx="16" cy="36" r="0.18" fill="white"/></svg>'); animation: move6 360s linear infinite; opacity: .6; }
-    .stars7 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="78" cy="22" r="0.17" fill="white"/><circle cx="40" cy="84" r="0.15" fill="white"/><circle cx="12" cy="40" r="0.17" fill="white"/></svg>'); animation: move7 420s linear infinite; opacity: .5; }
 
-    @keyframes move1 { from { background-position: 0 0; } to { background-position: -4200px 0; } }
-    @keyframes move2 { from { background-position: 0 0; } to { background-position: -3600px 0; } }
-    @keyframes move3 { from { background-position: 0 0; } to { background-position: -3000px 0; } }
-    @keyframes move4 { from { background-position: 0 0; } to { background-position: -2600px 0; } }
-    @keyframes move5 { from { background-position: 0 0; } to { background-position: -2200px 0; } }
-    @keyframes move6 { from { background-position: 0 0; } to { background-position: -1800px 0; } }
-    @keyframes move7 { from { background-position: 0 0; } to { background-position: -1400px 0; } }
+    /* keep your existing background-image data URIs; just swap animations */
+    .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.18" fill="white"/><circle cx="40" cy="10" r="0.22" fill="white"/><circle cx="28" cy="46" r="0.18" fill="white"/></svg>'); animation: drift1 120s linear infinite; opacity: 1; }
+    .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.22" fill="white"/><circle cx="64" cy="24" r="0.18" fill="white"/><circle cx="12" cy="16" r="0.24" fill="white"/></svg>'); animation: drift2 170s linear infinite; opacity: .92; }
+    .stars3 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.2" fill="white"/><circle cx="38" cy="80" r="0.18" fill="white"/><circle cx="16" cy="44" r="0.21" fill="white"/></svg>'); animation: drift3 210s linear infinite; opacity: .86; }
+    .stars4 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="18" cy="28" r="0.16" fill="white"/><circle cx="52" cy="18" r="0.19" fill="white"/><circle cx="36" cy="56" r="0.17" fill="white"/></svg>'); animation: drift4 260s linear infinite; opacity: .78; }
+    .stars5 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="10" cy="12" r="0.16" fill="white"/><circle cx="54" cy="40" r="0.18" fill="white"/><circle cx="28" cy="50" r="0.16" fill="white"/></svg>'); animation: drift5 300s linear infinite; opacity: .7; }
+    .stars6 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="70" cy="18" r="0.18" fill="white"/><circle cx="22" cy="72" r="0.16" fill="white"/><circle cx="16" cy="36" r="0.18" fill="white"/></svg>'); animation: drift6 360s linear infinite; opacity: .6; }
+    .stars7 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="78" cy="22" r="0.17" fill="white"/><circle cx="40" cy="84" r="0.15" fill="white"/><circle cx="12" cy="40" r="0.17" fill="white"/></svg>'); animation: drift7 420s linear infinite; opacity: .5; }
+
+    /* transform-based keyframes (buttery smooth) */
+    @keyframes drift1 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-4200px,0,0); } }
+    @keyframes drift2 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-3600px,0,0); } }
+    @keyframes drift3 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-3000px,0,0); } }
+    @keyframes drift4 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-2600px,0,0); } }
+    @keyframes drift5 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-2200px,0,0); } }
+    @keyframes drift6 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-1800px,0,0); } }
+    @keyframes drift7 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-1400px,0,0); } }
+
+    /* Respect reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      .stars1,.stars2,.stars3,.stars4,.stars5,.stars6,.stars7 { animation: none; }
+    }
 
     .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 26vh; pointer-events: none; z-index: 3; }
     .mountains path:nth-child(1) { fill: #4d6fa9; }
@@ -174,7 +193,7 @@
       font-size: 1.5em;
     }
 
-        /* Nested sublist for Education, Certifications, etc. */
+    /* Nested sublist for Education, Certifications, etc. */
     .sublist {
       list-style-type: disc;
       margin-top: 6px;
@@ -185,10 +204,7 @@
       font-size: 0.65em;  /* about half the parent size */
       line-height: 1.4;
     }
-    
-    .sublist li {
-      margin-bottom: 3px;
-    }
+    .sublist li { margin-bottom: 3px; }
 
     footer { padding:40px 0 70px; color:var(--muted); }
     .foot-links { display:flex; gap:16px; flex-wrap:wrap; }
