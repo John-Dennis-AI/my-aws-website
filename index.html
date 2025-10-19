@@ -209,6 +209,12 @@
     .about { display:grid; gap:24px; align-items:center; }
     @media (min-width:860px){.about{grid-template-columns: 260px 1fr;}}
     .avatar { width:240px; height:240px; border-radius:50%; overflow:hidden; border:3px solid rgba(255,255,255,.18); box-shadow:var(--shadow); }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;          /* fills the circular frame */
+      object-position: center 30%; /* shift image slightly downward so forehead is trimmed less */
+    }
     .about p { color:var(--muted); }
 
     .highlights li {
