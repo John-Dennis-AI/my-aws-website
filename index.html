@@ -51,7 +51,14 @@
 
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    .hero { position: relative; overflow: hidden; min-height: 72vh; display: grid; align-items: center; }
+    /* Hero moved up with extra bottom room */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 72vh;
+      display: grid;
+      align-content: start;   /* place content toward the top */
+    }
     .sky {
       background:
         radial-gradient(1200px 700px at 70% -10%, #1c2c5c 0%, rgba(11, 18, 32, 0) 60%),
@@ -89,53 +96,25 @@
               mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
-    /* ===========================
-       Stars: GPU-smooth transforms
-       =========================== */
-    /* Stars: optimized background-position animation */
-    /* Stars: optimized background-position + visible (>=0.6px) dots */
+    /* Stars (GPU hints kept) */
     .stars1,.stars2,.stars3,.stars4,.stars5,.stars6,.stars7 {
       position: absolute; inset: 0;
       background-repeat: repeat;
-      background-size: auto;              /* don't scale the tile */
+      background-size: auto;
       pointer-events: none;
       z-index: 2;
-      will-change: background-position;   /* perf hint */
-      transform: translateZ(0);           /* force compositing */
+      will-change: background-position;
+      transform: translateZ(0);
       animation-timing-function: linear;
     }
-    
-    /* Slightly larger star radii so they actually render on all DPIs */
-    .stars1 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.8" fill="white" opacity="0.95"/><circle cx="40" cy="10" r="0.9" fill="white" opacity="0.85"/><circle cx="28" cy="46" r="0.7" fill="white" opacity="0.9"/></svg>');
-      animation: move1 120s linear infinite; opacity: 1;
-    }
-    .stars2 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.9" fill="white" opacity="0.9"/><circle cx="64" cy="24" r="0.7" fill="white" opacity="0.9"/><circle cx="12" cy="16" r="1.0" fill="white" opacity="0.85"/></svg>');
-      animation: move2 170s linear infinite; opacity: .92;
-    }
-    .stars3 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.8" fill="white" opacity="0.88"/><circle cx="38" cy="80" r="0.7" fill="white" opacity="0.86"/><circle cx="16" cy="44" r="0.9" fill="white" opacity="0.88"/></svg>');
-      animation: move3 210s linear infinite; opacity: .86;
-    }
-    .stars4 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="18" cy="28" r="0.7" fill="white" opacity="0.85"/><circle cx="52" cy="18" r="0.9" fill="white" opacity="0.82"/><circle cx="36" cy="56" r="0.75" fill="white" opacity="0.84"/></svg>');
-      animation: move4 260s linear infinite; opacity: .78;
-    }
-    .stars5 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="10" cy="12" r="0.7" fill="white" opacity="0.82"/><circle cx="54" cy="40" r="0.85" fill="white" opacity="0.8"/><circle cx="28" cy="50" r="0.7" fill="white" opacity="0.82"/></svg>');
-      animation: move5 300s linear infinite; opacity: .7;
-    }
-    .stars6 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="70" cy="18" r="0.8" fill="white" opacity="0.78"/><circle cx="22" cy="72" r="0.7" fill="white" opacity="0.76"/><circle cx="16" cy="36" r="0.8" fill="white" opacity="0.78"/></svg>');
-      animation: move6 360s linear infinite; opacity: .6;
-    }
-    .stars7 {
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="78" cy="22" r="0.75" fill="white" opacity="0.75"/><circle cx="40" cy="84" r="0.65" fill="white" opacity="0.72"/><circle cx="12" cy="40" r="0.75" fill="white" opacity="0.75"/></svg>');
-      animation: move7 420s linear infinite; opacity: .5;
-    }
-    
-    /* background-position animations (smooth with GPU hints above) */
+    .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.8" fill="white" opacity="0.95"/><circle cx="40" cy="10" r="0.9" fill="white" opacity="0.85"/><circle cx="28" cy="46" r="0.7" fill="white" opacity="0.9"/></svg>'); animation: move1 120s linear infinite; opacity: 1; }
+    .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.9" fill="white" opacity="0.9"/><circle cx="64" cy="24" r="0.7" fill="white" opacity="0.9"/><circle cx="12" cy="16" r="1.0" fill="white" opacity="0.85"/></svg>'); animation: move2 170s linear infinite; opacity: .92; }
+    .stars3 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.8" fill="white" opacity="0.88"/><circle cx="38" cy="80" r="0.7" fill="white" opacity="0.86"/><circle cx="16" cy="44" r="0.9" fill="white" opacity="0.88"/></svg>'); animation: move3 210s linear infinite; opacity: .86; }
+    .stars4 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="18" cy="28" r="0.7" fill="white" opacity="0.85"/><circle cx="52" cy="18" r="0.9" fill="white" opacity="0.82"/><circle cx="36" cy="56" r="0.75" fill="white" opacity="0.84"/></svg>'); animation: move4 260s linear infinite; opacity: .78; }
+    .stars5 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="10" cy="12" r="0.7" fill="white" opacity="0.82"/><circle cx="54" cy="40" r="0.85" fill="white" opacity="0.8"/><circle cx="28" cy="50" r="0.7" fill="white" opacity="0.82"/></svg>'); animation: move5 300s linear infinite; opacity: .7; }
+    .stars6 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="70" cy="18" r="0.8" fill="white" opacity="0.78"/><circle cx="22" cy="72" r="0.7" fill="white" opacity="0.76"/><circle cx="16" cy="36" r="0.8" fill="white" opacity="0.78"/></svg>'); animation: move6 360s linear infinite; opacity: .6; }
+    .stars7 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="78" cy="22" r="0.75" fill="white" opacity="0.75"/><circle cx="40" cy="84" r="0.65" fill="white" opacity="0.72"/><circle cx="12" cy="40" r="0.75" fill="white" opacity="0.75"/></svg>'); animation: move7 420s linear infinite; opacity: .5; }
+
     @keyframes move1 { from { background-position: 0 0; } to { background-position: -4200px 0; } }
     @keyframes move2 { from { background-position: 0 0; } to { background-position: -3600px 0; } }
     @keyframes move3 { from { background-position: 0 0; } to { background-position: -3000px 0; } }
@@ -143,13 +122,7 @@
     @keyframes move5 { from { background-position: 0 0; } to { background-position: -2200px 0; } }
     @keyframes move6 { from { background-position: 0 0; } to { background-position: -1800px 0; } }
     @keyframes move7 { from { background-position: 0 0; } to { background-position: -1400px 0; } }
-    
-    /* Still respect reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .stars1,.stars2,.stars3,.stars4,.stars5,.stars6,.stars7 { animation: none; }
-    }
-    
-    /* still keep the reduced-motion guard */
+
     @media (prefers-reduced-motion: reduce) {
       .stars1,.stars2,.stars3,.stars4,.stars5,.stars6,.stars7 { animation: none; }
     }
@@ -175,7 +148,8 @@
     .headline .subline {
       display: block; font-size: 0.7em; font-weight: 400; line-height: 1.4; color: var(--muted);
     }
-    .hero-content { position: relative; z-index: 4; padding: 80px 0; }
+    /* Pull content up, push bottom away from mountains */
+    .hero-content { position: relative; z-index: 4; padding: 24px 0 160px; }
 
     section { padding: 70px 0; }
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
@@ -184,6 +158,7 @@
     @media (min-width:700px){.grid{grid-template-columns: repeat(2, 1fr);}}
     @media (min-width:1024px){.grid{grid-template-columns: repeat(3, 1fr);}}
 
+    /* Card as static article (not a link) */
     .card {
       display: flex; flex-direction: column;
       background: var(--panel);
@@ -192,7 +167,6 @@
       box-shadow: var(--shadow);
       overflow: hidden;
       color: var(--text);
-      text-decoration: none;
       transition: transform .12s ease, border-color .12s ease;
     }
     .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.18); }
@@ -215,8 +189,8 @@
       object-fit: contain;
       object-position: center;
       background-color: var(--bg);
-      transform: scale(1.4);      /* increase this value to zoom in (1.0 = normal) */
-      transition: transform 0.3s;  /* optional: smooth adjustment */
+      transform: scale(1.4);
+      transition: transform 0.3s;
     }
     .about p { color:var(--muted); }
 
@@ -229,7 +203,6 @@
       font-size: 1.5em;
     }
 
-    /* Nested sublist for Education, Certifications, etc. */
     .sublist {
       list-style-type: disc;
       margin-top: 6px;
@@ -237,7 +210,7 @@
       margin-left: 1.8em;
       padding-left: 0.6em;
       color: var(--muted);
-      font-size: 0.65em;  /* about half the parent size */
+      font-size: 0.65em;
       line-height: 1.4;
     }
     .sublist li { margin-bottom: 3px; }
@@ -251,6 +224,11 @@
     .cta-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
     .btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); color: var(--text); text-decoration: none; }
     .btn.primary { background: var(--accent); color: #0b1220; border-color: transparent; font-weight: 700; }
+
+    /* Optional: on very small screens, tighten top further */
+    @media (max-width: 600px) {
+      .hero-content { padding: 16px 0 140px; }
+    }
   </style>
 </head>
 
@@ -343,8 +321,7 @@
   <main id="projects" class="container" aria-label="Projects">
     <h2>Featured Projects</h2>
     <div class="grid">
-      <!-- Link to existing project page -->
-      <a class="card" href="projects/rag-project.html" aria-label="Agent/RAG Customer Chatbot">
+      <article class="card" aria-label="Agent/RAG Customer Chatbot">
         <div class="thumb"><img src="assets/img/agent-rag.jpg" alt="Agent/RAG Customer Chatbot thumbnail"></div>
         <div class="card-body">
           <h3>Agent/RAG Customer Chatbot</h3>
@@ -356,10 +333,9 @@
           </div>
           <p>AI-powered customer chatbot for a home improvement company using an LLM agent that directs users to the right RAG system for either kitchen remodeling advice or store policy questions. The agent decides which RAG tool is best-suited to answer the query.</p>
         </div>
-      </a>
+      </article>
 
-      <!-- Link to existing project page -->
-      <a class="card" href="projects/agent-workflow.html" aria-label="AWS Customer Support Agent">
+      <article class="card" aria-label="AWS Customer Support Agent">
         <div class="thumb"><img src="assets/img/aws-agent.jpg" alt="AWS Customer Support Agent thumbnail"></div>
         <div class="card-body">
           <h3>AWS Customer Support Agent</h3>
@@ -371,10 +347,9 @@
           </div>   
           <p>The AWS Support Triage Agent, built with Amazon Bedrock, intelligently routes customer inquiries to the right support domain. It classifies questions — such as product troubleshooting, billing, or policy — and retrieves relevant information from an S3 knowledge base.</p>
         </div>
-      </a>
+      </article>
 
-      <!-- Placeholder links until pages exist -->
-      <a class="card" href="#" aria-label="AWS News Digest Summarizer">
+      <article class="card" aria-label="AWS News Digest Summarizer">
         <div class="thumb"><img src="assets/img/aws-news.jpg" alt="AWS News Digest Summarizer thumbnail"></div>
         <div class="card-body">
           <h3>AWS News Digest Summarizer</h3>
@@ -386,34 +361,34 @@
             </div>
           <p>The AWS News Digest Summarizer automatically gathers top headlines from multiple RSS feeds each morning, summarizes them using Bedrock, and stores the results in S3. The results are emailed using SNS, creating a fully serverless daily news pipeline.</p>
         </div>
-      </a>
+      </article>
 
-      <a class="card" href="#" aria-label="Next-Day Price Prediction">
+      <article class="card" aria-label="Next-Day Price Prediction">
         <div class="thumb"><img src="projects/next-day-price/thumb.jpg" alt="Next-Day Price Prediction thumbnail"></div>
         <div class="card-body">
           <h3>Next-Day Price Prediction</h3>
           <div class="tags"><span class="tag">SARIMA</span><span class="tag">LSTM</span><span class="tag">sklearn</span></div>
           <p>Compare classical vs deep learning forecasts on equities with interpretable metrics.</p>
         </div>
-      </a>
+      </article>
 
-      <a class="card" href="#" aria-label="BikeEase Generative Ads">
+      <article class="card" aria-label="BikeEase Generative Ads">
         <div class="thumb"><img src="projects/bikeease-gen-ads/thumb.jpg" alt="BikeEase Generative Ads thumbnail"></div>
         <div class="card-body">
           <h3>BikeEase Generative Ads</h3>
           <div class="tags"><span class="tag">GenAI</span><span class="tag">Prompting</span><span class="tag">UX</span></div>
           <p>Interactive ad copy builder with presets, memory, and export to Markdown.</p>
         </div>
-      </a>
+      </article>
 
-      <a class="card" href="#" aria-label="Model Cards & Monitoring">
+      <article class="card" aria-label="Model Cards & Monitoring">
         <div class="thumb"><img src="projects/model-cards-monitoring/thumb.jpg" alt="Model Cards & Monitoring thumbnail"></div>
         <div class="card-body">
           <h3>Model Cards & Monitoring</h3>
           <div class="tags"><span class="tag">AWS</span><span class="tag">MLOps</span><span class="tag">Dashboards</span></div>
           <p>Lightweight governance demo with evaluation metrics, model cards, and drift visuals.</p>
         </div>
-      </a>
+      </article>
     </div>
   </main>
 
