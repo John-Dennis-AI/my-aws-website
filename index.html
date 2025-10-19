@@ -212,9 +212,11 @@
     .avatar img {
       width: 100%;
       height: 100%;
-      object-fit: contain;     /* zooms out so your whole face fits */
-      object-position: center; /* keeps you centered */
-      background-color: var(--bg); /* fills gaps if any appear */
+      object-fit: contain;
+      object-position: center;
+      background-color: var(--bg);
+      transform: scale(1.3);      /* increase this value to zoom in (1.0 = normal) */
+      transition: transform 0.3s;  /* optional: smooth adjustment */
     }
     .about p { color:var(--muted); }
 
