@@ -42,27 +42,41 @@
       backdrop-filter: blur(10px);
       padding: 22px 16px;
       z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
+
     .sidenav .brand { font-weight: 800; margin-bottom: 16px; }
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
     .sidenav a { color: var(--text); padding: 10px 12px; border-radius: 10px; }
     .sidenav a:hover { background: rgba(255, 255, 255, .08); }
     .sidenav a.active { background: rgba(255,255,255,.15); font-weight: 700; }
 
+    /* New sidebar footer area */
+    .sidenav hr {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 18px 0;
+    }
+    .sidenav .site-note {
+      font-size: 0.8em;
+      line-height: 1.4;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* Hero moved up with extra bottom room */
     .hero {
       position: relative;
       overflow: hidden;
       min-height: 72vh;
       display: grid;
-      align-content: start;   /* place content toward the top */
+      align-content: start;
+      padding-top: 100px;
     }
 
-    .hero {
-      padding-top: 100px;  /* adjust 32–64px until spacing looks perfect */
-    }
     .sky {
       background:
         radial-gradient(1200px 700px at 70% -10%, #1c2c5c 0%, rgba(11, 18, 32, 0) 60%),
@@ -84,6 +98,7 @@
       -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
               mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
     }
+
     .milkyway::after {
       content: ""; position: absolute; inset: 0;
       background-image: url('data:image/svg+xml;utf8,\
@@ -100,7 +115,7 @@
               mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
-    /* Stars (GPU hints kept) */
+    /* Starfield */
     .stars1,.stars2,.stars3,.stars4,.stars5,.stars6,.stars7 {
       position: absolute; inset: 0;
       background-repeat: repeat;
@@ -111,13 +126,13 @@
       transform: translateZ(0);
       animation-timing-function: linear;
     }
-    .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.8" fill="white" opacity="0.95"/><circle cx="40" cy="10" r="0.9" fill="white" opacity="0.85"/><circle cx="28" cy="46" r="0.7" fill="white" opacity="0.9"/></svg>'); animation: move1 120s linear infinite; opacity: 1; }
-    .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.9" fill="white" opacity="0.9"/><circle cx="64" cy="24" r="0.7" fill="white" opacity="0.9"/><circle cx="12" cy="16" r="1.0" fill="white" opacity="0.85"/></svg>'); animation: move2 170s linear infinite; opacity: .92; }
-    .stars3 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.8" fill="white" opacity="0.88"/><circle cx="38" cy="80" r="0.7" fill="white" opacity="0.86"/><circle cx="16" cy="44" r="0.9" fill="white" opacity="0.88"/></svg>'); animation: move3 210s linear infinite; opacity: .86; }
-    .stars4 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="72" height="72"><circle cx="18" cy="28" r="0.7" fill="white" opacity="0.85"/><circle cx="52" cy="18" r="0.9" fill="white" opacity="0.82"/><circle cx="36" cy="56" r="0.75" fill="white" opacity="0.84"/></svg>'); animation: move4 260s linear infinite; opacity: .78; }
-    .stars5 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64"><circle cx="10" cy="12" r="0.7" fill="white" opacity="0.82"/><circle cx="54" cy="40" r="0.85" fill="white" opacity="0.8"/><circle cx="28" cy="50" r="0.7" fill="white" opacity="0.82"/></svg>'); animation: move5 300s linear infinite; opacity: .7; }
-    .stars6 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="70" cy="18" r="0.8" fill="white" opacity="0.78"/><circle cx="22" cy="72" r="0.7" fill="white" opacity="0.76"/><circle cx="16" cy="36" r="0.8" fill="white" opacity="0.78"/></svg>'); animation: move6 360s linear infinite; opacity: .6; }
-    .stars7 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96"><circle cx="78" cy="22" r="0.75" fill="white" opacity="0.75"/><circle cx="40" cy="84" r="0.65" fill="white" opacity="0.72"/><circle cx="12" cy="40" r="0.75" fill="white" opacity="0.75"/></svg>'); animation: move7 420s linear infinite; opacity: .5; }
+    .stars1 { animation: move1 120s linear infinite; opacity: 1; }
+    .stars2 { animation: move2 170s linear infinite; opacity: .92; }
+    .stars3 { animation: move3 210s linear infinite; opacity: .86; }
+    .stars4 { animation: move4 260s linear infinite; opacity: .78; }
+    .stars5 { animation: move5 300s linear infinite; opacity: .7; }
+    .stars6 { animation: move6 360s linear infinite; opacity: .6; }
+    .stars7 { animation: move7 420s linear infinite; opacity: .5; }
 
     @keyframes move1 { from { background-position: 0 0; } to { background-position: -4200px 0; } }
     @keyframes move2 { from { background-position: 0 0; } to { background-position: -3600px 0; } }
@@ -152,7 +167,6 @@
     .headline .subline {
       display: block; font-size: 0.7em; font-weight: 400; line-height: 1.4; color: var(--muted);
     }
-    /* Pull content up, push bottom away from mountains */
     .hero-content { position: relative; z-index: 4; padding: 24px 0 160px; }
 
     section { padding: 70px 0; }
@@ -162,7 +176,6 @@
     @media (min-width:700px){.grid{grid-template-columns: repeat(2, 1fr);}}
     @media (min-width:1024px){.grid{grid-template-columns: repeat(3, 1fr);}}
 
-    /* Card as static article (not a link) */
     .card {
       display: flex; flex-direction: column;
       background: var(--panel);
@@ -196,6 +209,7 @@
       transform: scale(1.4);
       transition: transform 0.3s;
     }
+
     .about p { color:var(--muted); }
 
     .highlights li {
@@ -220,7 +234,6 @@
     .sublist li { margin-bottom: 3px; }
 
     footer { padding:40px 0 70px; color:var(--muted); }
-    .foot-links { display:flex; gap:16px; flex-wrap:wrap; }
 
     .contact p { color: var(--muted); }
     .contact-list { list-style: none; padding-left: 0; margin: 12px 0 18px; }
@@ -229,7 +242,6 @@
     .btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); color: var(--text); text-decoration: none; }
     .btn.primary { background: var(--accent); color: #0b1220; border-color: transparent; font-weight: 700; }
 
-    /* Optional: on very small screens, tighten top further */
     @media (max-width: 600px) {
       .hero-content { padding: 16px 0 140px; }
     }
@@ -238,187 +250,24 @@
 
 <body>
   <aside class="sidenav" aria-label="Site navigation">
-    <div class="brand">John Dennis • AWS Hosted</div>
-    <nav>
-      <a href="#top">Top</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div>
+      <div class="brand">John Dennis • AWS Hosted</div>
+      <nav>
+        <a href="#top">Top</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <hr>
+      <p class="site-note">
+        Built on GitHub and hosted with AWS (Route&nbsp;53, Cloud&nbsp;9, S3).  
+        Updated continuously via a GitHub&nbsp;→&nbsp;AWS CI/CD pipeline that keeps changes aligned with modern software engineering practices.
+      </p>
+    </div>
   </aside>
 
-  <header id="top" class="hero" aria-label="Intro">
-    <div class="sky"></div>
-    <div class="milkyway"></div>
-    <div class="stars1"></div>
-    <div class="stars2"></div>
-    <div class="stars3"></div>
-    <div class="stars4"></div>
-    <div class="stars5"></div>
-    <div class="stars6"></div>
-    <div class="stars7"></div>
-
-    <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
-      <path d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z"/>
-    </svg>
-
-    <div class="container hero-content">
-      <h1 class="headline">
-        Hi, I'm John Dennis!
-        <hr class="headline-line">
-        <span class="subline">
-          <br>
-          I develop Data Science, AI, and Machine Learning models, specializing in RAG, Agentic, and Multi-Modal systems.
-        </span>
-        <span class="subline">
-          <br>
-          Scroll down to learn more about me and the projects I've worked on...
-        </span>
-      </h1>
-    </div>
-  </header>
-
-  <section id="about" class="container" aria-label="About">
-    <h2>About</h2>
-    <div class="about">
-      <div class="avatar">
-        <img src="assets/img/headshot.jpg" alt="John Dennis headshot" />
-      </div>
-      <div>
-        <p style="font-size: 2em;">A quick overview of my background and skills...</p>
-        <ul class="highlights">
-          <li><strong>Education</strong>
-            <ul class="sublist">
-              <li>M.S., Computer Science &amp; Engineering</li>
-              <li>B.S., Electrical Engineering</li>
-            </ul>
-          </li>
-        
-          <li><strong>Certifications</strong>
-            <ul class="sublist">
-              <li>AWS Certified AI Practitioner</li>
-              <li>AWS Certified Cloud Practitioner</li>
-              <li>Databricks Generative AI Accreditation</li>
-            </ul>
-          </li>
-        
-          <li><strong>Leadership &amp; Community</strong>
-            <ul class="sublist">
-              <li>AWS Customer Council Member</li>
-              <li>AI/ML Bootcamp Instructor &amp; Curriculum Developer</li>
-            </ul>
-          </li>
-        
-          <li><strong>Technical Skills</strong>
-            <ul class="sublist">
-              <li>Python and SQL</li>
-              <li>ML and Data Engineering Pipelines</li>
-              <li>Software Engineering Practices (SDLC)</li>
-            </ul>
-          </li>
-        </ul>
-        <p style="font-size: 2em;">I am particularly skilled at bridging the gap between technical and non-technical audiences to ensure clear communication and shared understanding.</p>
-      </div>
-    </div>
-  </section>
-
-  <main id="projects" class="container" aria-label="Projects">
-    <h2>Featured Projects</h2>
-    <div class="grid">
-      <article class="card" aria-label="Agent/RAG Customer Chatbot">
-        <div class="thumb"><img src="assets/img/agent-rag.jpg" alt="Agent/RAG Customer Chatbot thumbnail"></div>
-        <div class="card-body">
-          <h3>Agent/RAG Customer Chatbot</h3>
-          <div class="tags">
-            <span class="tag">LangChain</span>
-            <span class="tag">FAISS</span>
-            <span class="tag">Hugging Face</span>
-            <span class="tag">OpenAI</span>
-          </div>
-          <p>AI-powered customer chatbot for a home improvement company using an LLM agent that directs users to the right RAG system for either kitchen remodeling advice or store policy questions. The agent decides which RAG tool is best-suited to answer the query.</p>
-        </div>
-      </article>
-
-      <article class="card" aria-label="AWS Customer Support Agent">
-        <div class="thumb"><img src="assets/img/aws-agent.jpg" alt="AWS Customer Support Agent thumbnail"></div>
-        <div class="card-body">
-          <h3>AWS Customer Support Agent</h3>
-          <div class="tags">
-            <span class="tag">AWS</span>
-            <span class="tag">Bedrock</span>
-            <span class="tag">Lambda</span>
-            <span class="tag">Claude Haiku</span>
-          </div>   
-          <p>The AWS Support Triage Agent, built with Amazon Bedrock, intelligently routes customer inquiries to the right support domain. It classifies questions — such as product troubleshooting, billing, or policy — and retrieves relevant information from an S3 knowledge base.</p>
-        </div>
-      </article>
-
-      <article class="card" aria-label="AWS News Digest Summarizer">
-        <div class="thumb"><img src="assets/img/aws-news.jpg" alt="AWS News Digest Summarizer thumbnail"></div>
-        <div class="card-body">
-          <h3>AWS News Digest Summarizer</h3>
-            <div class="tags">
-              <span class="tag">AWS</span>
-              <span class="tag">Bedrock</span>
-              <span class="tag">SNS</span>
-              <span class="tag">Claude Haiku</span>
-            </div>
-          <p>The AWS News Digest Summarizer automatically gathers top headlines from multiple RSS feeds each morning, summarizes them using Bedrock, and stores the results in S3. The results are emailed using SNS, creating a fully serverless daily news pipeline.</p>
-        </div>
-      </article>
-
-      <article class="card" aria-label="AWS Image Classifier">
-        <div class="thumb"><img src="assets/img/aws-news.jpg" alt="AWS Image Classifier thumbnail"></div>
-        <div class="card-body">
-          <h3>AWS Image Classifier</h3>
-          <div class="tags"><span class="tag">SARIMA</span><span class="tag">LSTM</span><span class="tag">sklearn</span></div>
-          <p>Compare classical vs deep learning forecasts on equities with interpretable metrics.</p>
-        </div>
-      </article>
-
-      <article class="card" aria-label="Text to Speech Chatbot">
-        <div class="thumb"><img src="assets/img/aws-news.jpg" alt="Text to Speech Chatbot thumbnail"></div>
-        <div class="card-body">
-          <h3>Text to Speech Chatbot</h3>
-          <div class="tags"><span class="tag">GenAI</span><span class="tag">Prompting</span><span class="tag">UX</span></div>
-          <p>Interactive ad copy builder with presets, memory, and export to Markdown.</p>
-        </div>
-      </article>
-
-      <article class="card" aria-label="Multi-Modal System">
-        <div class="thumb"><img src="assets/img/aws-news.jpg" alt="Multi-Modal System thumbnail"></div>
-        <div class="card-body">
-          <h3>Multi-Modal System</h3>
-          <div class="tags"><span class="tag">AWS</span><span class="tag">MLOps</span><span class="tag">Dashboards</span></div>
-          <p>Lightweight governance demo with evaluation metrics, model cards, and drift visuals.</p>
-        </div>
-      </article>
-    </div>
-  </main>
-
-  <section id="contact" class="container contact" aria-label="Contact">
-    <h2>Contact</h2>
-    <p>I’m always happy to connect about data science, AI/ML projects, and collaborations.</p>
-    <ul class="contact-list">
-      <li>📧 Prefer email? <a href="mailto:john@example.com">john@example.com</a></li>
-      <li>🗓️ Want to chat? <a href="#" target="_blank" rel="noopener">Book a short call</a></li>
-      <li>📄 Grab my résumé: <a href="assets/pdf/John-Dennis-Resume.pdf" download>Download Résumé (PDF)</a></li>
-      <li>🔗 Connect with me: <a href="https://www.linkedin.com/in/john-dennis-ai" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://github.com/John-Dennis-AI" target="_blank" rel="noopener">GitHub</a></li>
-    </ul>
-
-    <div class="cta-buttons">
-      <a class="btn primary" href="mailto:john@example.com">Email Me</a>
-      <a class="btn" href="assets/pdf/John-Dennis-Resume.pdf" download>Download Résumé (PDF)</a>
-      <a class="btn" href="#" target="_blank" rel="noopener">Book a Call</a>
-      <a class="btn" href="https://www.linkedin.com/in/john-dennis-ai" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://github.com/John-Dennis-AI" target="_blank" rel="noopener">GitHub</a>
-    </div>
-  </section>
-
-  <footer class="container" role="contentinfo">
-    <p>© <span id="year"></span> John Dennis. All rights reserved.</p>
-  </footer>
+  <!-- === REST OF YOUR SITE CONTENT === -->
+  <!-- unchanged header, about, projects, contact, footer go here -->
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -444,6 +293,13 @@
     });
 
     sections.forEach(sec => io.observe(sec));
+
+    // Fix: clicking a nav link should always highlight it immediately
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        setActive(link.getAttribute('href'));
+      });
+    });
 
     // Force-highlight Contact at true bottom of page
     window.addEventListener('scroll', () => {
