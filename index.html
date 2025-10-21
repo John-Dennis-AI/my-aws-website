@@ -64,6 +64,21 @@
       margin-top: 10px;
     }
 
+    .sidenav .site-note-lead {
+      font-size: 1.6em;      /* doubled from ~0.8em → 1.6em */
+      line-height: 1.35;
+      color: var(--muted);
+      margin: 10px 0 6px;
+    }
+    .sidenav .site-tools {
+      margin: 0 0 0 1em;
+      padding-left: 1em;
+      color: var(--muted);
+    }
+    .sidenav .site-tools li {
+      margin: 4px 0;
+    }
+
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
     /* Hero positioned higher with extra bottom room for mountains */
@@ -263,9 +278,18 @@
         <a href="#contact">Contact</a>
       </nav>
       <hr>
-      <p class="site-note">
-        Built on GitHub and hosted on AWS (Route&nbsp;53, Cloud9, S3). Updates flow through a GitHub&nbsp;→&nbsp;AWS CI/CD pipeline so changes ship reliably and follow solid software engineering practices.
+      <p class="site-note-lead">
+        Built on GitHub and deployed through AWS CI/CD pipelines using the following services:
       </p>
+      <ul class="site-tools">
+        <li>Route&nbsp;53 — DNS and domain routing</li>
+        <li>S3 — Static site hosting</li>
+        <li>CloudFront — CDN and HTTPS delivery</li>
+        <li>Cloud9 — Cloud-based development environment</li>
+        <li>IAM — Access and identity management</li>
+        <li>Lambda — Serverless automation and backend logic</li>
+        <li>CloudWatch — Monitoring and logging</li>
+      </ul>
     </div>
   </aside>
 
@@ -424,9 +448,9 @@
     <h2>Contact</h2>
     <p>I’m always happy to connect about data science, AI/ML projects, and collaborations.</p>
     <ul class="contact-list">
-      <li>📧 Prefer email? <a href="mailto:john@example.com">john@example.com</a></li>
+      <li>📧 Prefer email? <a href="mailto:johnmartindennis@gmail.com">johnmartindennis@gmail.com</a></li>
       <li>🗓️ Want to chat? <a href="#" target="_blank" rel="noopener">Book a short call</a></li>
-      <li>📄 Grab my résumé: <a href="assets/pdf/John-Dennis-Resume.pdf" download>Download Résumé (PDF)</a></li>
+      <li>📄 Grab my résumé: <a href="assets/pdf/john-dennis-resume.pdf" download>Download Résumé (PDF)</a></li>
       <li>🔗 Connect with me: <a href="https://www.linkedin.com/in/john-dennis-ai" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://github.com/John-Dennis-AI" target="_blank" rel="noopener">GitHub</a></li>
     </ul>
 
