@@ -158,8 +158,8 @@
 
     /* Mountains: autumn palette (burnt orange + deep crimson) */
     .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 26vh; pointer-events: none; z-index: 3; }
-    .mountains path:nth-child(1) { fill: #D2691E; } /* burnt orange (far ridge) */
-    .mountains path:nth-child(2) { fill: #8B1E3F; } /* deep crimson (near ridge) */
+    .mountains path:nth-child(1) { fill: #8B4513; } /* SaddleBrown — deeper burnt orange */
+    .mountains path:nth-child(2) { fill: #4B0E15; } /* dark crimson — richer, more shadowed */
 
     .headline {
       font-size: clamp(32px, 5vw, 56px);
@@ -279,14 +279,14 @@
         Built on GitHub and deployed through AWS CI/CD pipelines using the following services:
       </p>
       <ul class="site-tools">
-        <li>Route&nbsp;53 — DNS and domain routing</li>
-        <li>S3 — Static site hosting</li>
-        <li>CloudFront — CDN and HTTPS delivery</li>
-        <li>Cloud9 — Cloud-based development environment</li>
-        <li>CodePipeline/CodeBuild — CI/CD integration with GitHub</li>
-        <li>IAM — Access and identity management</li>
-        <li>Lambda — Serverless automation and backend logic</li>
-        <li>CloudWatch — Monitoring and logging</li>
+        <li><strong>Route&nbsp;53</strong> — DNS and domain routing</li>
+        <li><strong>S3</strong> — Static site hosting</li>
+        <li><strong>CloudFront</strong> — CDN and HTTPS delivery</li>
+        <li><strong>Cloud9</strong> — Cloud-based development environment</li>
+        <li><strong>CodePipeline/CodeBuild</strong> — CI/CD integration with GitHub</li>
+        <li><strong>IAM</strong> — Access and identity management</li>
+        <li><strong>Lambda</strong> — Serverless automation and backend logic</li>
+        <li><strong>CloudWatch</strong> — Monitoring and logging</li>
       </ul>
     </div>
   </aside>
