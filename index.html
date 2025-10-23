@@ -108,6 +108,27 @@
       pointer-events: none; z-index: 2; will-change: background-position; transform: translateZ(0);
       animation-timing-function: linear;
     }
+
+    /* Fade stars near the horizon (bottom) */
+    .stars1, .stars2, .stars3 {
+      /* Bottom = transparent, Top = opaque */
+      -webkit-mask-image: linear-gradient(
+        to top,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.15) 12%,
+        rgba(0,0,0,0.45) 20%,
+        rgba(0,0,0,0.75) 30%,
+        rgba(0,0,0,1) 45%
+      );
+              mask-image: linear-gradient(
+        to top,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0.15) 12%,
+        rgba(0,0,0,0.45) 20%,
+        rgba(0,0,0,0.75) 30%,
+        rgba(0,0,0,1) 45%
+      );
+    }
     .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.8" fill="white" opacity="0.95"/><circle cx="40" cy="10" r="0.9" fill="white" opacity="0.85"/><circle cx="28" cy="46" r="0.7" fill="white" opacity="0.9"/></svg>'); animation: move1 120s linear infinite; opacity: 1; }
     .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.9" fill="white" opacity="0.9"/><circle cx="64" cy="24" r="0.7" fill="white" opacity="0.9"/><circle cx="12" cy="16" r="1.0" fill="white" opacity="0.85"/></svg>'); animation: move2 170s linear infinite; opacity: .92; }
     .stars3 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.8" fill="white" opacity="0.88"/><circle cx="38" cy="80" r="0.7" fill="white" opacity="0.86"/><circle cx="16" cy="44" r="0.9" fill="white" opacity="0.88"/></svg>'); animation: move3 210s linear infinite; opacity: .86; }
@@ -214,15 +235,15 @@
         Built on GitHub and deployed through AWS CI/CD pipelines using the following cloud services:
       </p>
       <ul class="site-tools">
-        <li><strong>Route&nbsp;53</strong></li>
-        <li><strong>CloudFront</strong></li>
-        <li><strong>Cloud9</strong></li>
-        <li><strong>CodePipeline</strong></li>
-        <li><strong>CodeBuild</strong></li>
-        <li><strong>IAM</strong></li>
-        <li><strong>S3</strong></li>
-        <li><strong>Lambda</strong></li>
-        <li><strong>CloudWatch</strong></li>
+        <li>Route&nbsp;53</li>
+        <li>CloudFront</li>
+        <li>Cloud9</li>
+        <li>CodePipeline</li>
+        <li>CodeBuild</li>
+        <li>IAM</li>
+        <li>S3</li>
+        <li>Lambda</li>
+        <li>CloudWatch</li>
       </ul>
     </div>
   </aside>
@@ -247,7 +268,7 @@
         Hi, I'm John Dennis!
         <hr class="headline-line">
         <span class="subline">
-          I develop Data Science, AI, and Machine Learning models, specializing in RAG, Agentic, and Multi-Modal systems.
+          I develop Data Science, AI, and Machine Learning models, specializing in <strong>RAG</strong>, <strong>Agentic</strong>, and <strong>Multimodal</strong> systems.
         </span>
         <span class="subline">
           Scroll down to explore my cloud-based and standalone AI/ML projects...
