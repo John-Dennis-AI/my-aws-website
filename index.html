@@ -41,14 +41,18 @@
       border-right: 1px solid rgba(255, 255, 255, .06);
       backdrop-filter: blur(10px);
       padding: 22px 16px; z-index: 1000;
-      display: flex; flex-direction: column; justify-content: space-between;
+      display: flex; flex-direction: column; /* two sections: top & bottom */
     }
-    .sidenav .brand { font-weight: 800; margin-bottom: 16px; }
+    .side-top { display: flex; flex-direction: column; gap: 12px; }
+    .side-bottom { margin-top: auto; } /* push this block to the bottom */
+
+    .sidenav .brand { font-weight: 800; margin-bottom: 4px; }
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
     .sidenav a { color: var(--text); padding: 10px 12px; border-radius: 10px; }
     .sidenav a:hover { background: rgba(255, 255, 255, .08); }
     .sidenav a.active { background: rgba(255,255,255,.15); font-weight: 700; }
     .sidenav hr { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 18px 0; }
+
     .sidenav .site-note-lead { font-size: 1.1em; line-height: 1.35; color: var(--muted); margin: 10px 0 6px; }
     .sidenav .site-tools { margin: 0 0 0 1em; padding-left: 1em; color: var(--muted); }
     .sidenav .site-tools li { font-size: 0.9em; line-height: 1.4; margin: 4px 0; }
@@ -59,7 +63,7 @@
     .hero {
       position: relative; overflow: hidden; min-height: 72vh;
       display: grid; align-content: start;
-      padding-top: 80px;          /* was 100px; raised slightly */
+      padding-top: 80px;
     }
 
     .sky {
@@ -116,20 +120,20 @@
     .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 26vh; pointer-events: none; z-index: 3; }
     .mountains .snowcap {
       fill: #ffffff;
-      stroke: rgba(255,255,255,0.95);     /* crisp edge */
-      stroke-width: 3;                     /* make the white stand out */
-      filter: drop-shadow(0 1px 4px rgba(255,255,255,0.5)); /* subtle glow */
+      stroke: rgba(255,255,255,0.95);
+      stroke-width: 3;
+      filter: drop-shadow(0 1px 4px rgba(255,255,255,0.5));
     }
-    .mountains .mid { fill: #4d6fa9; }    /* mid ridge */
-    .mountains .front { fill: #6f8fbc; }  /* front ridge */
+    .mountains .mid { fill: #4d6fa9; }
+    .mountains .front { fill: #6f8fbc; }
 
     .headline { font-size: clamp(32px, 5vw, 56px); line-height: 1.05; font-weight: 500; margin: 0; z-index: 4; position: relative; text-wrap: balance; }
     .headline-line { border: none; height: 1px; background: linear-gradient(to right, var(--accent), transparent); width: 60%; margin: 16px 0; }
     .headline .subline { display: block; font-size: 0.7em; font-weight: 400; line-height: 1.4; color: var(--muted); }
-    .headline .subline + .subline { margin-top: 6px; }  /* pull the second line closer */
+    .headline .subline + .subline { margin-top: 14px; }  /* ↑ a little more room between the two sublines */
 
     /* More space above mountains */
-    .hero-content { position: relative; z-index: 4; padding: 24px 0 240px; } /* was 160px */
+    .hero-content { position: relative; z-index: 4; padding: 24px 0 240px; }
 
     section { padding: 70px 0; }
     .grid { display: grid; gap: 20px; }
@@ -192,7 +196,8 @@
 
 <body>
   <aside class="sidenav" aria-label="Site navigation">
-    <div>
+    <!-- TOP block stays at the top -->
+    <div class="side-top">
       <div class="brand">John Dennis • Portfolio</div>
       <nav>
         <a href="#top">Top</a>
@@ -201,6 +206,10 @@
         <a href="#contact">Contact Me</a>
       </nav>
       <hr>
+    </div>
+
+    <!-- BOTTOM block sticks near the bottom to create the open gap -->
+    <div class="side-bottom">
       <p class="site-note-lead">
         Built on GitHub and deployed through AWS CI/CD pipelines using the following cloud services:
       </p>
