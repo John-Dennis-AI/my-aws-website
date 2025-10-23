@@ -158,9 +158,18 @@
     }
 
     /* Mountains: autumn palette (burnt orange + deep crimson) */
-    .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 26vh; pointer-events: none; z-index: 3; }
-    .mountains path:nth-child(1) { fill: #4d6fa9; }
-    .mountains path:nth-child(2) { fill: #6f8fbc; }
+    .mountains { 
+      position: absolute; 
+      bottom: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 26vh; 
+      pointer-events: none; 
+      z-index: 3; 
+    }
+    .mountains path:nth-child(1) { fill: #ffffff; }  /* snow caps */
+    .mountains path:nth-child(2) { fill: #4d6fa9; }
+    .mountains path:nth-child(3) { fill: #6f8fbc; }
     /*.mountains path:nth-child(1) { fill: #8B4513; } /* SaddleBrown — deeper burnt orange */
     /*.mountains path:nth-child(2) { fill: #4B0E15; } /* dark crimson — richer, more shadowed */
 
@@ -309,9 +318,9 @@
       <div class="brand">John Dennis • Portfolio</div>
       <nav>
         <a href="#top">Top</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="#about">About Me</a>
+        <a href="#projects">My Projects</a>
+        <a href="#contact">Contact Me</a>
       </nav>
       <hr>
       <p class="site-note-lead">
@@ -340,6 +349,7 @@
     <div class="stars3"></div>
 
     <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 200 L200 100 L340 180 L520 90 L700 150 L860 80 L1040 170 L1220 120 L1440 190 L1440 400 L0 400 Z"/>
       <path d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
       <path d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z"/>
     </svg>
@@ -361,8 +371,8 @@
   </header>
 
   <!-- ABOUT -->
-  <section id="about" class="container" aria-label="About">
-    <h2>About</h2>
+  <section id="about" class="container" aria-label="About Me">
+    <h2>About Me</h2>
     <div class="about">
       <div class="avatar">
         <img src="assets/img/headshot.jpg" alt="John Dennis headshot" />
@@ -403,8 +413,8 @@
   </section>
 
   <!-- PROJECTS -->
-  <main id="projects" class="container" aria-label="Projects">
-    <h2>Featured Projects</h2>
+  <main id="projects" class="container" aria-label="My Projects">
+    <h2>My Projects</h2>
     <div class="grid">
       <article class="card" aria-label="Agent/RAG Customer Chatbot">
         <div class="thumb"><img src="assets/img/agent-rag.jpg" alt="Agent/RAG Customer Chatbot thumbnail"></div>
@@ -493,8 +503,8 @@
   </main>
 
   <!-- CONTACT -->
-  <section id="contact" class="container contact" aria-label="Contact">
-    <h2>Contact</h2>
+  <section id="contact" class="container contact" aria-label="Contact Me">
+    <h2>Contact Me</h2>
     <p>Please reach out, I'd like to connect!</p>
   
     <div class="contact-grid">
