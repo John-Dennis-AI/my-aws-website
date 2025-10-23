@@ -34,45 +34,32 @@
 
     a { color: var(--accent); text-decoration: none }
 
-    /* Sticky left sidebar */
+    /* Sidebar */
     .sidenav {
-      position: fixed;
-      left: 0; top: 0; bottom: 0;
-      width: 240px;
+      position: fixed; left: 0; top: 0; bottom: 0; width: 240px;
       background: rgba(11, 18, 32, .8);
       border-right: 1px solid rgba(255, 255, 255, .06);
       backdrop-filter: blur(10px);
-      padding: 22px 16px;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      padding: 22px 16px; z-index: 1000;
+      display: flex; flex-direction: column; justify-content: space-between;
     }
     .sidenav .brand { font-weight: 800; margin-bottom: 16px; }
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
     .sidenav a { color: var(--text); padding: 10px 12px; border-radius: 10px; }
     .sidenav a:hover { background: rgba(255, 255, 255, .08); }
     .sidenav a.active { background: rgba(255,255,255,.15); font-weight: 700; }
-    .sidenav hr {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin: 18px 0;
-    }
-    .sidenav .site-note { font-size: 0.8em; line-height: 1.4; color: var(--muted); margin-top: 10px; }
+    .sidenav hr { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 18px 0; }
     .sidenav .site-note-lead { font-size: 1.1em; line-height: 1.35; color: var(--muted); margin: 10px 0 6px; }
     .sidenav .site-tools { margin: 0 0 0 1em; padding-left: 1em; color: var(--muted); }
     .sidenav .site-tools li { font-size: 0.9em; line-height: 1.4; margin: 4px 0; }
 
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* Hero positioned higher with extra bottom room for mountains */
+    /* Hero — raised higher at top, more space above mountains */
     .hero {
-      position: relative;
-      overflow: hidden;
-      min-height: 72vh;
-      display: grid;
-      align-content: start;
-      padding-top: 72px; /* was 100px */
+      position: relative; overflow: hidden; min-height: 72vh;
+      display: grid; align-content: start;
+      padding-top: 80px;          /* was 100px; raised slightly */
     }
 
     .sky {
@@ -91,8 +78,7 @@
         radial-gradient(ellipse 70% 130% at 55% 45%, rgba(210,225,255,0.14) 0%, rgba(210,225,255,0.08) 35%, rgba(20,30,60,0) 70%),
         radial-gradient(ellipse 55% 90%  at 45% 55%, rgba(180,200,255,0.12) 0%, rgba(180,200,255,0.06) 40%, rgba(20,30,60,0) 72%),
         radial-gradient(ellipse 40% 65%  at 60% 40%, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.00) 70%);
-      filter: blur(12px);
-      opacity: .55;
+      filter: blur(12px); opacity: .55;
       -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
               mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
     }
@@ -112,75 +98,54 @@
               mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
-    /* Starfield layers (reduced to 3 for ~50% fewer stars) */
+    /* Fewer star layers (3) for ~50% density */
     .stars1,.stars2,.stars3 {
-      position: absolute; inset: 0;
-      background-repeat: repeat;
-      background-size: auto;
-      pointer-events: none;
-      z-index: 2;
-      will-change: background-position;
-      transform: translateZ(0);
+      position: absolute; inset: 0; background-repeat: repeat; background-size: auto;
+      pointer-events: none; z-index: 2; will-change: background-position; transform: translateZ(0);
       animation-timing-function: linear;
     }
     .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.8" fill="white" opacity="0.95"/><circle cx="40" cy="10" r="0.9" fill="white" opacity="0.85"/><circle cx="28" cy="46" r="0.7" fill="white" opacity="0.9"/></svg>'); animation: move1 120s linear infinite; opacity: 1; }
     .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.9" fill="white" opacity="0.9"/><circle cx="64" cy="24" r="0.7" fill="white" opacity="0.9"/><circle cx="12" cy="16" r="1.0" fill="white" opacity="0.85"/></svg>'); animation: move2 170s linear infinite; opacity: .92; }
     .stars3 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="82" cy="20" r="0.8" fill="white" opacity="0.88"/><circle cx="38" cy="80" r="0.7" fill="white" opacity="0.86"/><circle cx="16" cy="44" r="0.9" fill="white" opacity="0.88"/></svg>'); animation: move3 210s linear infinite; opacity: .86; }
-
     @keyframes move1 { from { background-position: 0 0; } to { background-position: -4200px 0; } }
     @keyframes move2 { from { background-position: 0 0; } to { background-position: -3600px 0; } }
     @keyframes move3 { from { background-position: 0 0; } to { background-position: -3000px 0; } }
+    @media (prefers-reduced-motion: reduce) { .stars1,.stars2,.stars3 { animation: none; } }
 
-    @media (prefers-reduced-motion: reduce) {
-      .stars1,.stars2,.stars3 { animation: none; }
-    }
-
-    /* Mountains */
+    /* Mountains (3 layers) with stronger, visible snowcaps */
     .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 26vh; pointer-events: none; z-index: 3; }
-    .mountains .back  { fill: #4d6fa9; }  /* back ridge */
+    .mountains .snowcap {
+      fill: #ffffff;
+      stroke: rgba(255,255,255,0.95);     /* crisp edge */
+      stroke-width: 3;                     /* make the white stand out */
+      filter: drop-shadow(0 1px 4px rgba(255,255,255,0.5)); /* subtle glow */
+    }
+    .mountains .mid { fill: #4d6fa9; }    /* mid ridge */
     .mountains .front { fill: #6f8fbc; }  /* front ridge */
-    .mountains .snow  { fill: #ffffff; }  /* snowcap overlay (masked) */
 
-    .headline {
-      font-size: clamp(32px, 5vw, 56px);
-      line-height: 1.05;
-      font-weight: 500;
-      margin: 0;
-      z-index: 4;
-      position: relative;
-      text-wrap: balance;
-    }
-    .headline-line {
-      border: none; height: 1px;
-      background: linear-gradient(to right, var(--accent), transparent);
-      width: 60%; margin: 16px 0;
-    }
+    .headline { font-size: clamp(32px, 5vw, 56px); line-height: 1.05; font-weight: 500; margin: 0; z-index: 4; position: relative; text-wrap: balance; }
+    .headline-line { border: none; height: 1px; background: linear-gradient(to right, var(--accent), transparent); width: 60%; margin: 16px 0; }
     .headline .subline { display: block; font-size: 0.7em; font-weight: 400; line-height: 1.4; color: var(--muted); }
+    .headline .subline + .subline { margin-top: 6px; }  /* pull the second line closer */
 
-    /* Pull content up, push bottom away from mountains */
-    .hero-content { position: relative; z-index: 4; padding: 12px 0 180px; }
+    /* More space above mountains */
+    .hero-content { position: relative; z-index: 4; padding: 24px 0 240px; } /* was 160px */
 
     section { padding: 70px 0; }
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
-
     .grid { display: grid; gap: 20px; }
     @media (min-width:700px){.grid{grid-template-columns: repeat(2, 1fr);}}
     @media (min-width:1024px){.grid{grid-template-columns: repeat(3, 1fr);}}
 
+    /* Cards */
     .card {
-      display: flex; flex-direction: column;
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      color: var(--text);
+      display: flex; flex-direction: column; background: var(--panel);
+      border: 1px solid rgba(255,255,255,.06); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden; color: var(--text);
       transition: transform .12s ease, border-color .12s ease;
     }
     .card:hover { transform: translateY(-2px); border-color: rgba(255,255,255,.18); }
-
     .thumb { aspect-ratio: 16/9; background:#0c1428; }
-    .thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+    .thumb img { width:100%; height:100%; object-fit:cover; display:block; cursor: zoom-in; }
 
     .card-body { padding:16px; }
     .tags { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 14px; }
@@ -188,22 +153,18 @@
     .card h3 { margin:0 0 6px; font-size:18px; }
     .card p { margin:0 0 14px; color:var(--muted); }
 
+    /* About */
     .about { display:grid; gap:24px; align-items:center; }
     @media (min-width:860px){.about{grid-template-columns: 260px 1fr;}}
     .avatar { width:240px; height:240px; border-radius:50%; overflow:hidden; border:3px solid rgba(255,255,255,.18); box-shadow:var(--shadow); }
     .avatar img { width: 100%; height: 100%; object-fit: contain; object-position: center; background-color: var(--bg); transform: scale(1.4); transition: transform 0.3s; }
     .about p { color:var(--muted); }
-
     .highlights li { position: relative; padding-left: 1.6em; margin-bottom: 8px; color: var(--muted); line-height: 1.5; font-size: 1.5em; }
     .sublist { list-style-type: disc; margin-top: 6px; margin-bottom: 12px; margin-left: 1.8em; padding-left: 0.6em; color: var(--muted); font-size: 0.65em; line-height: 1.4; }
     .sublist li { margin-bottom: 3px; }
 
-    footer { padding:40px 0 70px; color:var(--muted); }
-
+    /* Contact */
     .contact p { color: var(--muted); }
-    .contact-list { list-style: none; padding-left: 0; margin: 12px 0 18px; }
-    .contact-list li { margin-bottom: 8px; color: var(--muted); }
-
     .contact-grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 48px; margin-top: 40px; }
     .contact-item { display: flex; flex-direction: column; align-items: center; color: var(--text); text-decoration: none; transition: transform 0.2s ease, color 0.2s ease; }
     .contact-item i { font-size: 3rem; margin-bottom: 10px; color: var(--muted); }
@@ -211,12 +172,20 @@
     .contact-item:hover { transform: scale(1.08); }
     .contact-item:hover i, .contact-item:hover span { color: var(--accent); }
 
-    .cta-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-    .btn { display: inline-block; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,.14); color: var(--text); text-decoration: none; }
-    .btn.primary { background: var(--accent); color: #0b1220; border-color: transparent; font-weight: 700; }
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+      display: none; align-items: center; justify-content: center;
+      z-index: 2000;
+    }
+    .lightbox.show { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: var(--shadow);
+    }
 
+    /* Mobile tweak */
     @media (max-width: 600px) {
-      .hero-content { padding: 12px 0 160px; }
+      .hero-content { padding: 16px 0 200px; }
     }
   </style>
 </head>
@@ -257,25 +226,11 @@
     <div class="stars2"></div>
     <div class="stars3"></div>
 
+    <!-- 3-layer mountains with visible snowcaps -->
     <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
-      <!-- Reusable defs: mask limits snow to top; gradient softens its edge -->
-      <defs>
-        <linearGradient id="cap-fade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="white" stop-opacity="1"/>
-          <stop offset="100%" stop-color="white" stop-opacity="0"/>
-        </linearGradient>
-        <mask id="snowcap" maskUnits="userSpaceOnUse">
-          <!-- Only the top ~110px of the SVG is opaque; fades downward -->
-          <rect x="0" y="0" width="1440" height="110" fill="url(#cap-fade)"/>
-        </mask>
-      </defs>
-
-      <!-- Back ridge (higher one) -->
-      <path class="back" d="M0 200 L200 100 L340 180 L520 90 L700 150 L860 80 L1040 170 L1220 120 L1440 190 L1440 400 L0 400 Z"/>
-      <!-- Front ridge -->
-      <path class="front" d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z"/>
-      <!-- Snowcap overlay: duplicate the highest ridge path and apply mask -->
-      <path class="snow" mask="url(#snowcap)" d="M0 200 L200 100 L340 180 L520 90 L700 150 L860 80 L1040 170 L1220 120 L1440 190 L1440 400 L0 400 Z"/>
+      <path class="snowcap" d="M0 200 L200 100 L340 180 L520 90 L700 150 L860 80 L1040 170 L1220 120 L1440 190 L1440 400 L0 400 Z"/>
+      <path class="mid"     d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
+      <path class="front"   d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z"/>
     </svg>
 
     <div class="container hero-content">
@@ -283,11 +238,9 @@
         Hi, I'm John Dennis!
         <hr class="headline-line">
         <span class="subline">
-          <br>
           I develop Data Science, AI, and Machine Learning models, specializing in RAG, Agentic, and Multi-Modal systems.
         </span>
         <span class="subline">
-          <br>
           Scroll down to explore my cloud-based and standalone AI/ML projects...
         </span>
       </h1>
@@ -430,7 +383,6 @@
   <section id="contact" class="container contact" aria-label="Contact Me">
     <h2>Contact Me</h2>
     <p>Please reach out, I'd like to connect!</p>
-  
     <div class="contact-grid">
       <a href="mailto:johnmartindennis@gmail.com" class="contact-item" aria-label="Email">
         <i class="fa-solid fa-envelope"></i>
@@ -450,6 +402,11 @@
       </a>
     </div>
   </section>
+
+  <!-- LIGHTBOX OVERLAY -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <img id="lightbox-img" alt="">
+  </div>
 
   <!-- FOOTER -->
   <footer class="container" role="contentinfo">
@@ -475,11 +432,7 @@
         const id = '#' + entry.target.id;
         if (byId[id]) setActive(id);
       });
-    }, {
-      root: null,
-      rootMargin: '-40% 0px -40% 0px',
-      threshold: 0.1
-    });
+    }, { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0.1 });
 
     sections.forEach(sec => io.observe(sec));
 
@@ -488,11 +441,34 @@
       link.addEventListener('click', () => setActive(link.getAttribute('href')));
     });
 
-    // Highlight Contact at true bottom
+    // Force-highlight Contact at true bottom of page
     window.addEventListener('scroll', () => {
       const scrollBottom = window.scrollY + window.innerHeight;
       const docHeight = document.documentElement.scrollHeight;
       if (docHeight - scrollBottom <= 2) setActive('#contact');
+    });
+
+    // Simple lightbox for project images
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.thumb img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('show');
+      });
+    });
+    // Close on click outside image or on Escape
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target === lightboxImg) {
+        lightbox.classList.remove('show');
+        lightboxImg.src = '';
+      }
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        lightbox.classList.remove('show');
+        lightboxImg.src = '';
+      }
     });
   </script>
 </body>
