@@ -93,7 +93,7 @@
       min-height: 72vh;
       display: grid;
       align-content: start;
-      padding-top: 100px; /* tweak to taste */
+      padding-top: 72px; /* ↓ was 100px; moves the headline slightly closer to the top */
     }
 
     .sky {
@@ -157,7 +157,7 @@
       .stars1,.stars2,.stars3 { animation: none; }
     }
 
-    /* Mountains: autumn palette (burnt orange + deep crimson) */
+    /* Mountains */
     .mountains { 
       position: absolute; 
       bottom: 0; 
@@ -167,11 +167,10 @@
       pointer-events: none; 
       z-index: 3; 
     }
-    .mountains path:nth-child(1) { fill: #ffffff; }  /* snow caps */
+    /* Snow caps use a gradient defined inside the SVG */
+    .mountains path:nth-child(1) { fill: url(#snow-gradient); opacity: 0.9; }
     .mountains path:nth-child(2) { fill: #4d6fa9; }
     .mountains path:nth-child(3) { fill: #6f8fbc; }
-    /*.mountains path:nth-child(1) { fill: #8B4513; } /* SaddleBrown — deeper burnt orange */
-    /*.mountains path:nth-child(2) { fill: #4B0E15; } /* dark crimson — richer, more shadowed */
 
     .headline {
       font-size: clamp(32px, 5vw, 56px);
@@ -191,7 +190,11 @@
       display: block; font-size: 0.7em; font-weight: 400; line-height: 1.4; color: var(--muted);
     }
     /* Pull content up, push bottom away from mountains */
-    .hero-content { position: relative; z-index: 4; padding: 24px 0 160px; }
+    .hero-content { 
+      position: relative; 
+      z-index: 4; 
+      padding: 12px 0 180px; /* ↑ a bit more bottom room for the mountains overlap */
+    }
 
     /* Sections */
     section { padding: 70px 0; }
@@ -307,7 +310,7 @@
     .btn.primary { background: var(--accent); color: #0b1220; border-color: transparent; font-weight: 700; }
 
     @media (max-width: 600px) {
-      .hero-content { padding: 16px 0 140px; }
+      .hero-content { padding: 12px 0 160px; }
     }
   </style>
 </head>
@@ -349,8 +352,19 @@
     <div class="stars3"></div>
 
     <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+      <!-- Snow gradient for the caps -->
+      <defs>
+        <linearGradient id="snow-gradient" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="100%" stop-color="#dfe9f3"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Snow caps (use gradient) -->
       <path d="M0 200 L200 100 L340 180 L520 90 L700 150 L860 80 L1040 170 L1220 120 L1440 190 L1440 400 L0 400 Z"/>
+      <!-- Back mountains -->
       <path d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
+      <!-- Front mountains -->
       <path d="M0 300 L180 220 L360 300 L520 210 L700 270 L860 220 L1040 300 L1220 260 L1440 310 L1440 400 L0 400 Z"/>
     </svg>
 
