@@ -50,7 +50,15 @@
     .side-top { display: flex; flex-direction: column; gap: 12px; }
     .side-bottom { margin-top: auto; }
 
-    .sidenav .brand { font-weight: 800; margin-bottom: 4px; }
+    /* UPDATED: right-justify the brand */
+    .sidenav .brand {
+      font-weight: 800;
+      margin-bottom: 4px;
+      text-align: right;
+      margin-left: auto;      /* push to the right */
+      align-self: flex-end;   /* ensure the flex item hugs the right */
+    }
+
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
     .sidenav a { color: var(--text); padding: 10px 12px; border-radius: 10px; }
     .sidenav a:hover { background: rgba(255, 255, 255, .08); }
@@ -228,6 +236,9 @@
       body.nav-collapsed .sidenav { transform: translateX(-100%); }
 
       .hero{ padding-top: 80px; }
+
+      /* UPDATED: move hamburger so it doesn't cover the brand */
+      .menu-toggle{ left: 252px; }
     }
   </style>
 </head>
