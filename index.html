@@ -21,6 +21,7 @@
 
     html { scroll-behavior: smooth; }
 
+    /* ===== Mobile-first defaults ===== */
     body {
       margin: 0;
       font-family: Inter, sans-serif;
@@ -29,22 +30,24 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      padding-left: 240px;
+      padding-left: 0;                 /* mobile: no reserved space */
     }
-
     a { color: var(--accent); text-decoration: none }
 
-    /* Sidebar */
+    /* Sidebar (off-canvas by default on mobile) */
     .sidenav {
       position: fixed; left: 0; top: 0; bottom: 0; width: 240px;
       background: rgba(11, 18, 32, .8);
       border-right: 1px solid rgba(255, 255, 255, .06);
       backdrop-filter: blur(10px);
       padding: 22px 16px; z-index: 1000;
-      display: flex; flex-direction: column; /* two sections: top & bottom */
+      display: flex; flex-direction: column;
+      transform: translateX(-100%);         /* hidden by default */
+      transition: transform .2s ease;
     }
+    .sidenav.open { transform: translateX(0); }
     .side-top { display: flex; flex-direction: column; gap: 12px; }
-    .side-bottom { margin-top: auto; } /* push this block to the bottom */
+    .side-bottom { margin-top: auto; }
 
     .sidenav .brand { font-weight: 800; margin-bottom: 4px; }
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
@@ -57,9 +60,34 @@
     .sidenav .site-tools { margin: 0 0 0 1em; padding-left: 1em; color: var(--muted); }
     .sidenav .site-tools li { font-size: 0.9em; line-height: 1.4; margin: 4px 0; }
 
+    /* Mobile hamburger + backdrop (shown by default) */
+    .menu-toggle{
+      position: fixed;
+      left: 12px; top: 12px;
+      display: inline-flex;            /* visible on mobile */
+      align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(17,26,46,.85);
+      color: var(--text);
+      z-index: 1100;
+      backdrop-filter: blur(8px);
+    }
+    .menu-toggle i{ font-size: 1.25rem; }
+
+    .backdrop{
+      position: fixed; inset: 0; 
+      background: rgba(0,0,0,.4); 
+      display: none; 
+      z-index: 900;
+    }
+    .backdrop.show{ display:block; }
+    .noscroll{ overflow: hidden; }
+
     .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
-    /* Hero — raised higher at top, more space above mountains */
+    /* Hero */
     .hero {
       position: relative; overflow: hidden; min-height: 72vh;
       display: grid; align-content: start;
@@ -102,32 +130,13 @@
               mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
-    /* Fewer star layers (3) for ~50% density */
+    /* Stars (with horizon fade) */
     .stars1,.stars2,.stars3 {
       position: absolute; inset: 0; background-repeat: repeat; background-size: auto;
       pointer-events: none; z-index: 2; will-change: background-position; transform: translateZ(0);
       animation-timing-function: linear;
-    }
-
-    /* Fade stars near the horizon (bottom) */
-    .stars1, .stars2, .stars3 {
-      /* Bottom = transparent, Top = opaque */
-      -webkit-mask-image: linear-gradient(
-        to top,
-        rgba(0,0,0,0) 0%,
-        rgba(0,0,0,0.15) 12%,
-        rgba(0,0,0,0.45) 20%,
-        rgba(0,0,0,0.75) 30%,
-        rgba(0,0,0,1) 45%
-      );
-              mask-image: linear-gradient(
-        to top,
-        rgba(0,0,0,0) 0%,
-        rgba(0,0,0,0.15) 12%,
-        rgba(0,0,0,0.45) 20%,
-        rgba(0,0,0,0.75) 30%,
-        rgba(0,0,0,1) 45%
-      );
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 45%);
+              mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 45%);
     }
     .stars1 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56"><circle cx="10" cy="20" r="0.8" fill="white" opacity="0.95"/><circle cx="40" cy="10" r="0.9" fill="white" opacity="0.85"/><circle cx="28" cy="46" r="0.7" fill="white" opacity="0.9"/></svg>'); animation: move1 120s linear infinite; opacity: 1; }
     .stars2 { background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><circle cx="32" cy="56" r="0.9" fill="white" opacity="0.9"/><circle cx="64" cy="24" r="0.7" fill="white" opacity="0.9"/><circle cx="12" cy="16" r="1.0" fill="white" opacity="0.85"/></svg>'); animation: move2 170s linear infinite; opacity: .92; }
@@ -137,12 +146,10 @@
     @keyframes move3 { from { background-position: 0 0; } to { background-position: -3000px 0; } }
     @media (prefers-reduced-motion: reduce) { .stars1,.stars2,.stars3 { animation: none; } }
 
-    /* Mountains (3 layers) with stronger, visible snowcaps */
+    /* Mountains */
     .mountains { position: absolute; bottom: 0; left: 0; width: 100%; height: 26vh; pointer-events: none; z-index: 3; }
     .mountains .snowcap {
-      fill: #ffffff;
-      stroke: rgba(255,255,255,0.95);
-      stroke-width: 3;
+      fill: #ffffff; stroke: rgba(255,255,255,0.95); stroke-width: 3;
       filter: drop-shadow(0 1px 4px rgba(255,255,255,0.5));
     }
     .mountains .mid { fill: #4d6fa9; }
@@ -151,9 +158,8 @@
     .headline { font-size: clamp(32px, 5vw, 56px); line-height: 1.05; font-weight: 500; margin: 0; z-index: 4; position: relative; text-wrap: balance; }
     .headline-line { border: none; height: 1px; background: linear-gradient(to right, var(--accent), transparent); width: 60%; margin: 16px 0; }
     .headline .subline { display: block; font-size: 0.7em; font-weight: 400; line-height: 1.4; color: var(--muted); }
-    .headline .subline + .subline { margin-top: 14px; }  /* ↑ a little more room between the two sublines */
+    .headline .subline + .subline { margin-top: 14px; }
 
-    /* More space above mountains */
     .hero-content { position: relative; z-index: 4; padding: 24px 0 240px; }
 
     section { padding: 70px 0; }
@@ -208,46 +214,13 @@
       max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: var(--shadow);
     }
 
-    /* ===== Mobile drawer bits ===== */
-    .menu-toggle{
-      position: fixed;
-      left: 12px; top: 12px;
-      display: none;               /* hidden on desktop */
-      align-items: center; justify-content: center;
-      width: 44px; height: 44px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(17,26,46,.85);
-      color: var(--text);
-      z-index: 1100;
-      backdrop-filter: blur(8px);
-    }
-    .menu-toggle i{ font-size: 1.25rem; }
-
-    .backdrop{
-      position: fixed; inset: 0; 
-      background: rgba(0,0,0,.4); 
-      display: none; 
-      z-index: 900;
-    }
-    .noscroll{ overflow: hidden; }
-
-    @media (max-width: 900px){
-      body{ padding-left: 0; }                 /* stop reserving sidebar space */
-      .menu-toggle{ display: inline-flex; }    /* show hamburger */
-
-      .sidenav{
-        width: 80vw; max-width: 300px;
-        transform: translateX(-100%);          /* hidden off-canvas */
-        transition: transform .2s ease;
-        z-index: 1000;
-      }
-      .sidenav.open{ transform: translateX(0); }  /* slide in */
-      .backdrop.show{ display: block; }
-
-      .hero{ padding-top: 72px; }
-      .headline{ font-size: clamp(26px, 6vw, 42px); }
-      .hero-content{ padding-bottom: 200px; }
+    /* ===== Desktop breakpoint: pin sidebar, hide hamburger ===== */
+    @media (min-width: 900px){
+      body{ padding-left: 240px; }          /* reserve space for fixed sidebar */
+      .sidenav{ transform: none; }          /* sidebar always visible */
+      .menu-toggle{ display: none; }        /* no hamburger on desktop */
+      .backdrop{ display: none !important; }
+      .hero{ padding-top: 80px; }
     }
   </style>
 </head>
@@ -260,7 +233,7 @@
   <div class="backdrop" aria-hidden="true"></div>
 
   <aside class="sidenav" aria-label="Site navigation">
-    <!-- TOP block stays at the top -->
+    <!-- TOP block -->
     <div class="side-top">
       <div class="brand">John Dennis • Portfolio</div>
       <nav>
@@ -272,7 +245,7 @@
       <hr>
     </div>
 
-    <!-- BOTTOM block sticks near the bottom to create the open gap -->
+    <!-- BOTTOM block -->
     <div class="side-bottom">
       <p class="site-note-lead">
         Built on GitHub and deployed through AWS CI/CD pipelines using the following cloud services:
@@ -299,7 +272,6 @@
     <div class="stars2"></div>
     <div class="stars3"></div>
 
-    <!-- 3-layer mountains with visible snowcaps -->
     <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
       <path class="snowcap" d="M0 200 L200 100 L340 180 L520 90 L700 150 L860 80 L1040 170 L1220 120 L1440 190 L1440 400 L0 400 Z"/>
       <path class="mid"     d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
@@ -530,7 +502,6 @@
         lightbox.classList.add('show');
       });
     });
-    // Close on click outside image or on Escape
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox || e.target === lightboxImg) {
         lightbox.classList.remove('show');
@@ -544,7 +515,7 @@
       }
     });
 
-    // ===== Mobile drawer logic =====
+    // Mobile drawer logic
     const toggleBtn = document.querySelector('.menu-toggle');
     const sidenav   = document.querySelector('.sidenav');
     const backdrop  = document.querySelector('.backdrop');
