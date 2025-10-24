@@ -17,6 +17,8 @@
       --radius: 18px;
       --shadow: 0 10px 30px rgba(0, 0, 0, .35);
       --maxw: 1100px;
+      /* NEW: responsive sidebar width */
+      --navw: clamp(220px, 26vw, 240px);
     }
 
     html { scroll-behavior: smooth; }
@@ -30,13 +32,13 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      padding-left: 0; /* mobile: no reserved space */
+      padding-left: 0; /* mobile & narrow: no reserved space */
     }
     a { color: var(--accent); text-decoration: none }
 
     /* Sidebar (off-canvas by default) */
     .sidenav {
-      position: fixed; left: 0; top: 0; bottom: 0; width: 240px;
+      position: fixed; left: 0; top: 0; bottom: 0; width: var(--navw); /* ← uses var */
       background: rgba(11, 18, 32, .92);
       border-right: 1px solid rgba(255, 255, 255, .06);
       backdrop-filter: blur(10px);
@@ -53,7 +55,7 @@
     .sidenav .brand {
       font-weight: 800;
       margin-bottom: 4px;
-      margin-left: 60px; /* 👈 pushes "Portfolio" right */
+      margin-left: 60px; /* nudges "Portfolio" right of the hamburger */
     }
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
     .sidenav a { color: var(--text); padding: 10px 12px; border-radius: 10px; }
@@ -220,18 +222,23 @@
       max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: var(--shadow);
     }
 
-    /* ===== Desktop breakpoint: sidebar can be opened/closed too ===== */
-    @media (min-width: 900px){
-      /* Default: sidebar open and space reserved */
-      body{ padding-left: 240px; }
-      .sidenav{ transform: translateX(0); }
-      .backdrop{ display: none !important; } /* no backdrop on desktop */
+    /* ===== Desktop-wide: pin sidebar (no overlap) ===== */
+    @media (min-width: 1100px){
+      body{ padding-left: var(--navw); }     /* reserve space equal to sidebar */
+      .sidenav{ transform: translateX(0); }  /* keep visible */
+      .backdrop{ display: none !important; } /* no backdrop on wide desktop */
 
-      /* When user collapses the nav via hamburger */
+      /* Optional: allow collapsing sidebar with hamburger on desktop */
       body.nav-collapsed { padding-left: 0; }
       body.nav-collapsed .sidenav { transform: translateX(-100%); }
 
       .hero{ padding-top: 80px; }
+    }
+
+    /* Narrow desktop & tablet (<1100px): overlay drawer behavior (no padding-left) */
+    @media (max-width: 1099.98px){
+      body { padding-left: 0; }
+      .sidenav { transform: translateX(-100%); } /* hidden until opened */
     }
   </style>
 </head>
@@ -529,22 +536,22 @@
       }
     });
 
-    // ===== Mobile/desktop drawer logic (updated) =====
+    // ===== Mobile/desktop drawer logic (updated, 1100px breakpoint) =====
     const toggleBtn = document.querySelector('.menu-toggle');
     const sidenav   = document.querySelector('.sidenav');
     const backdrop  = document.querySelector('.backdrop');
-    const mqDesktop = window.matchMedia('(min-width: 900px)');
+    const mqDesktop = window.matchMedia('(min-width: 1100px)'); // ← synced with CSS
 
     // Ensure sensible defaults when crossing breakpoints
     function applyBreakpointDefaults(e){
       if (e.matches) {
-        // Desktop: show the sidebar, no backdrop, no scroll lock
+        // Desktop-wide: show the sidebar, no backdrop, no scroll lock
         document.body.classList.remove('noscroll');
         backdrop.classList.remove('show');
         sidenav.classList.add('open');                 // keep class for consistency
         document.body.classList.remove('nav-collapsed'); // default expanded
       } else {
-        // Mobile: sidebar closed initially
+        // Narrow/mobile: sidebar closed initially
         sidenav.classList.remove('open');
         document.body.classList.remove('nav-collapsed');
       }
@@ -560,10 +567,10 @@
 
     toggleBtn.addEventListener('click', () => {
       if (mqDesktop.matches) {
-        // Desktop: collapse/expand by toggling body padding + translateX
+        // Desktop-wide: collapse/expand by toggling body padding + translateX
         document.body.classList.toggle('nav-collapsed');
       } else {
-        // Mobile: classic drawer open/close
+        // Narrow/mobile: classic drawer open/close
         const opening = !sidenav.classList.contains('open');
         sidenav.classList.toggle('open', opening);
         backdrop.classList.toggle('show', opening);
@@ -571,7 +578,7 @@
       }
     });
 
-    // Backdrop only used on mobile
+    // Backdrop only used on narrow/mobile
     backdrop.addEventListener('click', closeNavMobile);
 
     // Optional: close mobile drawer after selecting a link
