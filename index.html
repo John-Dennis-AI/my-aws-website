@@ -30,14 +30,14 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-      padding-left: 0;                 /* mobile: no reserved space */
+      padding-left: 0; /* mobile: no reserved space */
     }
     a { color: var(--accent); text-decoration: none }
 
-    /* Sidebar (off-canvas by default on mobile) */
+    /* Sidebar (off-canvas by default) */
     .sidenav {
       position: fixed; left: 0; top: 0; bottom: 0; width: 240px;
-      background: rgba(11, 18, 32, .8);
+      background: rgba(11, 18, 32, .92);
       border-right: 1px solid rgba(255, 255, 255, .06);
       backdrop-filter: blur(10px);
       padding: 22px 16px; z-index: 1000;
@@ -46,6 +46,7 @@
       transition: transform .2s ease;
     }
     .sidenav.open { transform: translateX(0); }
+
     .side-top { display: flex; flex-direction: column; gap: 12px; }
     .side-bottom { margin-top: auto; }
 
@@ -60,11 +61,13 @@
     .sidenav .site-tools { margin: 0 0 0 1em; padding-left: 1em; color: var(--muted); }
     .sidenav .site-tools li { font-size: 0.9em; line-height: 1.4; margin: 4px 0; }
 
-    /* Mobile hamburger + backdrop (shown by default) */
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+
+    /* Hamburger + backdrop (ALWAYS visible; also on desktop) */
     .menu-toggle{
       position: fixed;
       left: 12px; top: 12px;
-      display: inline-flex;            /* visible on mobile */
+      display: inline-flex;
       align-items: center; justify-content: center;
       width: 44px; height: 44px;
       border-radius: 10px;
@@ -73,6 +76,7 @@
       color: var(--text);
       z-index: 1100;
       backdrop-filter: blur(8px);
+      cursor: pointer;
     }
     .menu-toggle i{ font-size: 1.25rem; }
 
@@ -84,8 +88,6 @@
     }
     .backdrop.show{ display:block; }
     .noscroll{ overflow: hidden; }
-
-    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
 
     /* Hero */
     .hero {
@@ -130,7 +132,7 @@
               mask-image: linear-gradient(90deg, transparent 0%, black 20%, black 80%, transparent 100%);
     }
 
-    /* Stars (with horizon fade) */
+    /* Stars (horizon fade) */
     .stars1,.stars2,.stars3 {
       position: absolute; inset: 0; background-repeat: repeat; background-size: auto;
       pointer-events: none; z-index: 2; will-change: background-position; transform: translateZ(0);
@@ -214,19 +216,21 @@
       max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: var(--shadow);
     }
 
-    /* ===== Desktop breakpoint: pin sidebar, hide hamburger ===== */
+    /* ===== Desktop breakpoint: pin sidebar (but keep hamburger visible) ===== */
     @media (min-width: 900px){
-      body{ padding-left: 240px; }          /* reserve space for fixed sidebar */
-      .sidenav{ transform: none; }          /* sidebar always visible */
-      .menu-toggle{ display: none; }        /* no hamburger on desktop */
-      .backdrop{ display: none !important; }
+      body{ padding-left: 240px; }  /* reserve space for fixed sidebar */
+      .sidenav{ transform: none; }  /* sidebar always visible */
+      /* DO NOT hide .menu-toggle on desktop */
+      .backdrop{ display: none !important; } /* no backdrop when pinned open */
       .hero{ padding-top: 80px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- Mobile drawer trigger + backdrop -->
+  <noscript><div style="padding:12px;background:#222;border-bottom:1px solid rgba(255,255,255,.15);color:#fff">JavaScript is disabled — navigation drawer and image lightbox won’t work, but content is below.</div></noscript>
+
+  <!-- Hamburger + backdrop -->
   <button class="menu-toggle" aria-label="Open navigation">
     <i class="fa-solid fa-bars"></i>
   </button>
@@ -272,6 +276,7 @@
     <div class="stars2"></div>
     <div class="stars3"></div>
 
+    <!-- Mountains -->
     <svg class="mountains" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
       <path class="snowcap" d="M0 200 L200 100 L340 180 L520 90 L700 150 L860 80 L1040 170 L1220 120 L1440 190 L1440 400 L0 400 Z"/>
       <path class="mid"     d="M0 260 L200 160 L340 240 L520 130 L700 210 L860 120 L1040 220 L1220 170 L1440 250 L1440 400 L0 400 Z"/>
@@ -515,7 +520,7 @@
       }
     });
 
-    // Mobile drawer logic
+    // Mobile/desktop drawer logic
     const toggleBtn = document.querySelector('.menu-toggle');
     const sidenav   = document.querySelector('.sidenav');
     const backdrop  = document.querySelector('.backdrop');
