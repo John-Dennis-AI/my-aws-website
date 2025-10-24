@@ -50,7 +50,11 @@
     .side-top { display: flex; flex-direction: column; gap: 12px; }
     .side-bottom { margin-top: auto; }
 
-    .sidenav .brand { font-weight: 800; margin-bottom: 4px; }
+    .sidenav .brand {
+      font-weight: 800;
+      margin-bottom: 4px;
+      margin-left: 60px; /* 👈 pushes "Portfolio" right */
+    }
     .sidenav nav { display: flex; flex-direction: column; gap: 12px; }
     .sidenav a { color: var(--text); padding: 10px 12px; border-radius: 10px; }
     .sidenav a:hover { background: rgba(255, 255, 255, .08); }
@@ -244,7 +248,7 @@
   <aside class="sidenav" aria-label="Site navigation">
     <!-- TOP block -->
     <div class="side-top">
-      <div class="brand"></div>
+      <div class="brand">Portfolio</div>
       <nav>
         <a href="#top">Top</a>
         <a href="#about">About Me</a>
