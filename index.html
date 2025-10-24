@@ -216,12 +216,17 @@
       max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: var(--shadow);
     }
 
-    /* ===== Desktop breakpoint: pin sidebar (but keep hamburger visible) ===== */
+    /* ===== Desktop breakpoint: sidebar can be opened/closed too ===== */
     @media (min-width: 900px){
-      body{ padding-left: 240px; }  /* reserve space for fixed sidebar */
-      .sidenav{ transform: none; }  /* sidebar always visible */
-      /* DO NOT hide .menu-toggle on desktop */
-      .backdrop{ display: none !important; } /* no backdrop when pinned open */
+      /* Default: sidebar open and space reserved */
+      body{ padding-left: 240px; }
+      .sidenav{ transform: translateX(0); }
+      .backdrop{ display: none !important; } /* no backdrop on desktop */
+
+      /* When user collapses the nav via hamburger */
+      body.nav-collapsed { padding-left: 0; }
+      body.nav-collapsed .sidenav { transform: translateX(-100%); }
+
       .hero{ padding-top: 80px; }
     }
   </style>
@@ -520,26 +525,57 @@
       }
     });
 
-    // Mobile/desktop drawer logic
+    // ===== Mobile/desktop drawer logic (updated) =====
     const toggleBtn = document.querySelector('.menu-toggle');
     const sidenav   = document.querySelector('.sidenav');
     const backdrop  = document.querySelector('.backdrop');
+    const mqDesktop = window.matchMedia('(min-width: 900px)');
 
-    function closeNav(){
+    // Ensure sensible defaults when crossing breakpoints
+    function applyBreakpointDefaults(e){
+      if (e.matches) {
+        // Desktop: show the sidebar, no backdrop, no scroll lock
+        document.body.classList.remove('noscroll');
+        backdrop.classList.remove('show');
+        sidenav.classList.add('open');                 // keep class for consistency
+        document.body.classList.remove('nav-collapsed'); // default expanded
+      } else {
+        // Mobile: sidebar closed initially
+        sidenav.classList.remove('open');
+        document.body.classList.remove('nav-collapsed');
+      }
+    }
+    applyBreakpointDefaults(mqDesktop);
+    mqDesktop.addEventListener('change', applyBreakpointDefaults);
+
+    function closeNavMobile(){
       sidenav.classList.remove('open');
       backdrop.classList.remove('show');
       document.body.classList.remove('noscroll');
     }
 
     toggleBtn.addEventListener('click', () => {
-      const opening = !sidenav.classList.contains('open');
-      sidenav.classList.toggle('open', opening);
-      backdrop.classList.toggle('show', opening);
-      document.body.classList.toggle('noscroll', opening);
+      if (mqDesktop.matches) {
+        // Desktop: collapse/expand by toggling body padding + translateX
+        document.body.classList.toggle('nav-collapsed');
+      } else {
+        // Mobile: classic drawer open/close
+        const opening = !sidenav.classList.contains('open');
+        sidenav.classList.toggle('open', opening);
+        backdrop.classList.toggle('show', opening);
+        document.body.classList.toggle('noscroll', opening);
+      }
     });
 
-    backdrop.addEventListener('click', closeNav);
-    document.querySelectorAll('.sidenav a').forEach(a => a.addEventListener('click', closeNav));
+    // Backdrop only used on mobile
+    backdrop.addEventListener('click', closeNavMobile);
+
+    // Optional: close mobile drawer after selecting a link
+    document.querySelectorAll('.sidenav a').forEach(a => {
+      a.addEventListener('click', () => {
+        if (!mqDesktop.matches) closeNavMobile();
+      });
+    });
   </script>
 </body>
 </html>
