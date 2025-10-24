@@ -612,6 +612,60 @@
         if (!mqDesktop.matches && !mqMedium.matches) closeNavMobile();
       });
     });
+    /* --- NO-OVERLAP GUARANTEE --- */
+    function px(v){ return Number(String(v).replace('px','')) || 0; }
+    function getNavW(){
+      const cs = getComputedStyle(document.documentElement);
+      const fromVar = px(cs.getPropertyValue('--navw'));
+      return fromVar || document.querySelector('.sidenav')?.clientWidth || 240;
+    }
+
+    function getContentLeft() {
+      const el = document.querySelector('main .container') || document.querySelector('.container');
+      return el ? el.getBoundingClientRect().left : window.innerWidth;
+    }
+
+    function ensureNoOverlap() {
+      const nav = document.querySelector('.sidenav');
+      if (!nav) return;
+
+      const rightEdge = nav.getBoundingClientRect().right;
+      const leftEdge  = getContentLeft();
+      const gap = leftEdge - rightEdge;
+
+      if (mqDesktop.matches) {
+        if (gap < 12) {
+          document.body.classList.add('nav-collapsed');
+          nav.classList.remove('open');
+        }
+      } else if (mqMedium.matches) {
+        if (nav.classList.contains('open') && gap < 12) {
+          document.body.classList.add('push');
+        }
+        if (!nav.classList.contains('open')) {
+          document.body.classList.remove('push');
+        }
+      } else {
+        if (nav.classList.contains('open') && gap < 12) {
+          nav.classList.remove('open');
+          backdrop.classList.remove('show');
+          document.body.classList.remove('noscroll');
+        }
+      }
+    }
+
+    window.addEventListener('resize', ensureNoOverlap);
+    window.addEventListener('orientationchange', ensureNoOverlap);
+    document.addEventListener('DOMContentLoaded', ensureNoOverlap);
+
+    const _oldToggle = toggleBtn.onclick || null;
+    toggleBtn.addEventListener('click', () => {
+      setTimeout(ensureNoOverlap, 0);
+    });
+
+    [mqDesktop, mqMedium].forEach(mq => mq.addEventListener('change', () => {
+      setTimeout(ensureNoOverlap, 0);
+    }));
   </script>
 </body>
 </html>
