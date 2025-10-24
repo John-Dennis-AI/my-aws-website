@@ -185,7 +185,7 @@
     .avatar img { width: 100%; height: 100%; object-fit: contain; object-position: center; background-color: var(--bg); transform: scale(1.4); transition: transform 0.3s; }
     .about p { color:var(--muted); }
     .highlights li { position: relative; padding-left: 1.6em; margin-bottom: 8px; color: var(--muted); line-height: 1.5; font-size: 1.5em; }
-    .sublist { list-style-type: disc; margin-top: 6px; margin-bottom: 12px; margin-left: 1.8em; padding-left: 0.6em; color: var(--muted); font-size: 0.65em; line-height: 1.4; }
+    .sublist { list-style-type: disc; margin-top: 6px; margin-bottom: 12px; margin-left: 1.8em; padding-left: 0.6em; color:var(--muted); font-size: 0.65em; line-height: 1.4; }
     .sublist li { margin-bottom: 3px; }
 
     /* Contact */
@@ -208,14 +208,57 @@
       max-width: 90vw; max-height: 85vh; border-radius: 12px; box-shadow: var(--shadow);
     }
 
-    /* Mobile tweak */
-    @media (max-width: 600px) {
-      .hero-content { padding: 16px 0 200px; }
+    /* ===== Mobile drawer bits ===== */
+    .menu-toggle{
+      position: fixed;
+      left: 12px; top: 12px;
+      display: none;               /* hidden on desktop */
+      align-items: center; justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(17,26,46,.85);
+      color: var(--text);
+      z-index: 1100;
+      backdrop-filter: blur(8px);
+    }
+    .menu-toggle i{ font-size: 1.25rem; }
+
+    .backdrop{
+      position: fixed; inset: 0; 
+      background: rgba(0,0,0,.4); 
+      display: none; 
+      z-index: 900;
+    }
+    .noscroll{ overflow: hidden; }
+
+    @media (max-width: 900px){
+      body{ padding-left: 0; }                 /* stop reserving sidebar space */
+      .menu-toggle{ display: inline-flex; }    /* show hamburger */
+
+      .sidenav{
+        width: 80vw; max-width: 300px;
+        transform: translateX(-100%);          /* hidden off-canvas */
+        transition: transform .2s ease;
+        z-index: 1000;
+      }
+      .sidenav.open{ transform: translateX(0); }  /* slide in */
+      .backdrop.show{ display: block; }
+
+      .hero{ padding-top: 72px; }
+      .headline{ font-size: clamp(26px, 6vw, 42px); }
+      .hero-content{ padding-bottom: 200px; }
     }
   </style>
 </head>
 
 <body>
+  <!-- Mobile drawer trigger + backdrop -->
+  <button class="menu-toggle" aria-label="Open navigation">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <div class="backdrop" aria-hidden="true"></div>
+
   <aside class="sidenav" aria-label="Site navigation">
     <!-- TOP block stays at the top -->
     <div class="side-top">
@@ -500,6 +543,27 @@
         lightboxImg.src = '';
       }
     });
+
+    // ===== Mobile drawer logic =====
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const sidenav   = document.querySelector('.sidenav');
+    const backdrop  = document.querySelector('.backdrop');
+
+    function closeNav(){
+      sidenav.classList.remove('open');
+      backdrop.classList.remove('show');
+      document.body.classList.remove('noscroll');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const opening = !sidenav.classList.contains('open');
+      sidenav.classList.toggle('open', opening);
+      backdrop.classList.toggle('show', opening);
+      document.body.classList.toggle('noscroll', opening);
+    });
+
+    backdrop.addEventListener('click', closeNav);
+    document.querySelectorAll('.sidenav a').forEach(a => a.addEventListener('click', closeNav));
   </script>
 </body>
 </html>
