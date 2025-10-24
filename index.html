@@ -17,7 +17,7 @@
       --radius: 18px;
       --shadow: 0 10px 30px rgba(0, 0, 0, .35);
       --maxw: 1100px;
-      /* NEW: responsive sidebar width */
+      /* responsive sidebar width */
       --navw: clamp(220px, 26vw, 240px);
     }
 
@@ -38,7 +38,7 @@
 
     /* Sidebar (off-canvas by default) */
     .sidenav {
-      position: fixed; left: 0; top: 0; bottom: 0; width: var(--navw); /* ← uses var */
+      position: fixed; left: 0; top: 0; bottom: 0; width: var(--navw);
       background: rgba(11, 18, 32, .92);
       border-right: 1px solid rgba(255, 255, 255, .06);
       backdrop-filter: blur(10px);
@@ -235,10 +235,18 @@
       .hero{ padding-top: 80px; }
     }
 
-    /* Narrow desktop & tablet (<1100px): overlay drawer behavior (no padding-left) */
-    @media (max-width: 1099.98px){
+    /* ===== Medium widths: PUSH mode to avoid overlap ===== */
+    @media (min-width: 700px) and (max-width: 1099.98px){
+      body { padding-left: 0; }            /* no space until user opens it */
+      body.push { padding-left: var(--navw); } /* push content when open */
+      .backdrop { display: none !important; }  /* no dark overlay on medium */
+      .sidenav { box-shadow: 0 0 24px rgba(0,0,0,.35); }
+    }
+
+    /* Narrow/mobile: overlay drawer (no padding-left) */
+    @media (max-width: 699.98px){
       body { padding-left: 0; }
-      .sidenav { transform: translateX(-100%); } /* hidden until opened */
+      .sidenav { transform: translateX(-100%); }
     }
   </style>
 </head>
@@ -536,28 +544,35 @@
       }
     });
 
-    // ===== Mobile/desktop drawer logic (updated, 1100px breakpoint) =====
+    // ===== Drawer logic: desktop (pinned), medium (push), mobile (overlay) =====
     const toggleBtn = document.querySelector('.menu-toggle');
     const sidenav   = document.querySelector('.sidenav');
     const backdrop  = document.querySelector('.backdrop');
-    const mqDesktop = window.matchMedia('(min-width: 1100px)'); // ← synced with CSS
 
-    // Ensure sensible defaults when crossing breakpoints
-    function applyBreakpointDefaults(e){
-      if (e.matches) {
-        // Desktop-wide: show the sidebar, no backdrop, no scroll lock
-        document.body.classList.remove('noscroll');
+    // Match CSS breakpoints
+    const mqDesktop = window.matchMedia('(min-width: 1100px)');
+    const mqMedium  = window.matchMedia('(min-width: 700px) and (max-width: 1099.98px)');
+
+    function applyBreakpointDefaults(){
+      if (mqDesktop.matches) {
+        // Wide desktop: pin open by default
+        document.body.classList.remove('noscroll','push','nav-collapsed');
         backdrop.classList.remove('show');
-        sidenav.classList.add('open');                 // keep class for consistency
-        document.body.classList.remove('nav-collapsed'); // default expanded
-      } else {
-        // Narrow/mobile: sidebar closed initially
+        sidenav.classList.add('open');
+      } else if (mqMedium.matches) {
+        // Medium: closed by default, no backdrop, no push until opened
+        document.body.classList.remove('noscroll','push','nav-collapsed');
+        backdrop.classList.remove('show');
         sidenav.classList.remove('open');
-        document.body.classList.remove('nav-collapsed');
+      } else {
+        // Mobile: closed by default, overlay behavior
+        document.body.classList.remove('push','nav-collapsed');
+        backdrop.classList.remove('show');
+        sidenav.classList.remove('open');
       }
     }
-    applyBreakpointDefaults(mqDesktop);
-    mqDesktop.addEventListener('change', applyBreakpointDefaults);
+    applyBreakpointDefaults();
+    [mqDesktop, mqMedium].forEach(mq => mq.addEventListener('change', applyBreakpointDefaults));
 
     function closeNavMobile(){
       sidenav.classList.remove('open');
@@ -567,10 +582,20 @@
 
     toggleBtn.addEventListener('click', () => {
       if (mqDesktop.matches) {
-        // Desktop-wide: collapse/expand by toggling body padding + translateX
+        // Wide desktop: allow collapsing the pinned nav
         document.body.classList.toggle('nav-collapsed');
+        if (document.body.classList.contains('nav-collapsed')) {
+          sidenav.classList.remove('open');
+        } else {
+          sidenav.classList.add('open');
+        }
+      } else if (mqMedium.matches) {
+        // Medium: push mode — open drawer and push content (no backdrop)
+        const opening = !sidenav.classList.contains('open');
+        sidenav.classList.toggle('open', opening);
+        document.body.classList.toggle('push', opening);
       } else {
-        // Narrow/mobile: classic drawer open/close
+        // Mobile: overlay with backdrop and scroll lock
         const opening = !sidenav.classList.contains('open');
         sidenav.classList.toggle('open', opening);
         backdrop.classList.toggle('show', opening);
@@ -578,13 +603,13 @@
       }
     });
 
-    // Backdrop only used on narrow/mobile
+    // Backdrop only used on mobile
     backdrop.addEventListener('click', closeNavMobile);
 
-    // Optional: close mobile drawer after selecting a link
+    // Close mobile drawer after selecting a link
     document.querySelectorAll('.sidenav a').forEach(a => {
       a.addEventListener('click', () => {
-        if (!mqDesktop.matches) closeNavMobile();
+        if (!mqDesktop.matches && !mqMedium.matches) closeNavMobile();
       });
     });
   </script>
